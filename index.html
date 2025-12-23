@@ -4,71 +4,80 @@
 <meta charset="UTF-8">
 <title>Happy Birthday Pooja ❤️</title>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&display=swap');
+
 body {
     margin: 0;
     height: 100vh;
-    background: linear-gradient(135deg, #ff6f91, #ff9671);
+    background: radial-gradient(circle at top, #2b004d, #0d0019);
     overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Segoe UI', sans-serif;
-    color: white;
+    font-family: 'Playfair Display', serif;
+    color: #f0e6ff;
 }
 
 .card {
-    background: rgba(0, 0, 0, 0.35);
+    text-align: center;
+    max-width: 500px;
     padding: 40px;
     border-radius: 25px;
-    text-align: center;
-    max-width: 420px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    background: rgba(50,0,75,0.3);
+    box-shadow: 0 0 40px rgba(200, 100, 255, 0.5);
 }
 
 h1 {
-    font-size: 38px;
-    text-shadow: 0 0 10px rgba(255,255,255,0.4);
+    font-family: 'Great Vibes', cursive;
+    font-size: 50px;
+    color: #ff9fff;
+    text-shadow: 0 0 20px #ff9fff, 0 0 40px #ff6fff;
+    margin-bottom: 40px;
 }
 
 #text {
-    font-size: 18px;
-    line-height: 1.7;
-    min-height: 260px;
+    font-size: 22px;
+    line-height: 1.8;
+    min-height: 280px;
     white-space: pre-line;
-    text-shadow: 0 0 8px rgba(255,182,193,0.6);
+    text-align: center;
+    text-shadow: 0 0 15px rgba(255,182,255,0.5);
 }
 
 .signature {
-    margin-top: 12px;
-    font-style: italic;
-    font-size: 17px;
-    color: #ffd6e0;
-    text-shadow: 0 0 16px rgba(255,182,193,1);
-    animation: glowPulse 2.5s infinite;
+    font-family: 'Great Vibes', cursive;
+    margin-top: 20px;
+    font-size: 28px;
+    color: #ffb3ff;
+    text-shadow: 0 0 20px #ffb3ff, 0 0 35px #ff6fff;
+    opacity: 0;
+    transition: opacity 2s ease;
 }
 
 button {
-    margin-top: 20px;
-    padding: 12px 26px;
-    font-size: 16px;
+    margin-top: 30px;
+    padding: 14px 30px;
+    font-size: 18px;
     border: none;
     border-radius: 30px;
     cursor: pointer;
-    background: #ff4d6d;
+    background: #ff6eff;
     color: white;
-    box-shadow: 0 0 12px rgba(255,77,109,0.8);
+    box-shadow: 0 0 20px #ff6eff;
+    transition: 0.3s;
 }
 
-@keyframes glowPulse {
-    0% { text-shadow: 0 0 8px rgba(255,182,193,0.6); }
-    50% { text-shadow: 0 0 18px rgba(255,182,193,1); }
-    100% { text-shadow: 0 0 8px rgba(255,182,193,0.6); }
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px #ff9fff;
 }
 
+/* Falling hearts */
 .heart-fall {
     position: absolute;
     top: -10px;
     animation: fall linear infinite;
+    font-size: 18px;
 }
 
 @keyframes fall {
@@ -84,71 +93,73 @@ button {
 <div class="card">
     <h1>Happy Birthday, Pooja ❤️</h1>
     <div id="text"></div>
-    <div id="signature" class="signature"></div>
+    <div id="signature" class="signature">~ Rudra</div>
     <button id="startBtn" onclick="startSurprise()">Tap here, Pooja ❤️</button>
-
     <audio id="song" preload="auto">
         <source src="ReelAudio-16362.mp3" type="audio/mpeg">
     </audio>
 </div>
 
 <script>
-// Each line with delay (ms) roughly synced to song flow
 const lines = [
-    { text: "If time could pause,", delay: 1200 },
-    { text: "it would stop with you.", delay: 1800 },
-    { text: "In moments soft,", delay: 1600 },
-    { text: "in skies of blue.", delay: 1800 },
-    { text: "You are the wish the stars once knew,", delay: 2200 },
-    { text: "a quiet dream that came true ✨", delay: 2600 },
-    { text: "On your birthday and all days ahead,", delay: 2200 },
-    { text: "may love find you wherever you tread.", delay: 2600 },
-    { text: "And if my heart could softly say,", delay: 2200 },
-    { text: "it would choose you — every day 💖", delay: 3000 }
+  { text: "If time could pause,", delay: 1500 },
+  { text: "it would stop with you.", delay: 2000 },
+  { text: "In moments soft,", delay: 1700 },
+  { text: "in skies of blue.", delay: 2000 },
+  { text: "You are the wish the stars once knew,", delay: 2200 },
+  { text: "a quiet dream that came true ✨", delay: 2500 },
+  { text: "On your birthday and all days ahead,", delay: 2200 },
+  { text: "may love find you wherever you tread.", delay: 2500 },
+  { text: "And if my heart could softly say,", delay: 2200 },
+  { text: "it would choose you — every day 💖", delay: 3000 }
 ];
 
+let index = 0;
 const textDiv = document.getElementById("text");
 const signDiv = document.getElementById("signature");
 const song = document.getElementById("song");
-let lineIndex = 0;
 
 function showNextLine() {
-    if(lineIndex < lines.length){
-        textDiv.innerHTML += lines[lineIndex].text + "<br><br>";
-        setTimeout(showNextLine, lines[lineIndex].delay);
-        lineIndex++;
+    if (index < lines.length) {
+        const line = document.createElement('div');
+        line.textContent = lines[index].text;
+        line.style.opacity = 0;
+        line.style.transition = "opacity 1.5s ease";
+        textDiv.appendChild(line);
+        setTimeout(() => line.style.opacity = 1, 100);
+
+        index++;
+        setTimeout(showNextLine, lines[index-1].delay);
     } else {
-        signDiv.innerHTML = "~ Rudra";
+        signDiv.style.opacity = 1;
     }
 }
 
 function startSurprise() {
-    showNextLine(); // start the synced text
-
-    // play music with soft fade-in
     song.volume = 0;
     song.play();
     let v = 0;
-    const fade = setInterval(()=>{
-        if(v < 0.85){ v += 0.05; song.volume = v; }
-        else { clearInterval(fade); }
+    const fade = setInterval(() => {
+        if (v < 0.85) {
+            v += 0.05;
+            song.volume = v;
+        } else clearInterval(fade);
     }, 300);
-
+    showNextLine();
     document.getElementById("startBtn").style.display = "none";
-}
 
-// Falling hearts animation
-for(let k=0;k<28;k++){
-    let h = document.createElement("div");
-    h.className = "heart-fall";
-    h.innerHTML = "❤️";
-    h.style.left = Math.random()*100+"vw";
-    h.style.animationDuration = (6+Math.random()*6)+"s";
-    h.style.fontSize = (14+Math.random()*24)+"px";
-    document.body.appendChild(h);
+    // Falling hearts
+    for(let k=0;k<25;k++){
+        let h=document.createElement("div");
+        h.className="heart-fall";
+        h.innerHTML="❤️";
+        h.style.left=Math.random()*100+"vw";
+        h.style.fontSize=(14+Math.random()*24)+"px";
+        h.style.animationDuration=(6+Math.random()*5)+"s";
+        document.body.appendChild(h);
+    }
 }
 </script>
 
 </body>
 </html>
-  
