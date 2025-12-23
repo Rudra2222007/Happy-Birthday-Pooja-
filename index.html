@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -30,7 +30,6 @@ body {
 
 h1 {
     font-size: 38px;
-    margin-bottom: 15px;
     text-shadow: 0 0 10px rgba(255,255,255,0.4);
 }
 
@@ -47,14 +46,8 @@ h1 {
     font-style: italic;
     font-size: 17px;
     color: #ffd6e0;
-    text-shadow: 0 0 10px rgba(255, 182, 193, 0.9);
+    text-shadow: 0 0 14px rgba(255,182,193,1);
     animation: glowPulse 2.5s infinite;
-}
-
-.heart {
-    font-size: 42px;
-    animation: pulse 1.5s infinite;
-    text-shadow: 0 0 12px rgba(255,255,255,0.8);
 }
 
 button {
@@ -69,15 +62,11 @@ button {
     box-shadow: 0 0 12px rgba(255,77,109,0.8);
 }
 
-button:hover {
-    background: #ff2e55;
-}
-
-/* Animations */
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.25); }
-    100% { transform: scale(1); }
+iframe {
+    margin-top: 12px;
+    border-radius: 12px;
+    opacity: 0;
+    animation: musicFade 3s forwards;
 }
 
 @keyframes fadeIn {
@@ -87,8 +76,13 @@ button:hover {
 
 @keyframes glowPulse {
     0% { text-shadow: 0 0 8px rgba(255,182,193,0.6); }
-    50% { text-shadow: 0 0 16px rgba(255,182,193,1); }
+    50% { text-shadow: 0 0 18px rgba(255,182,193,1); }
     100% { text-shadow: 0 0 8px rgba(255,182,193,0.6); }
+}
+
+@keyframes musicFade {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 /* Falling hearts */
@@ -96,7 +90,6 @@ button:hover {
     position: absolute;
     top: -10px;
     animation: fall linear infinite;
-    color: rgba(255,255,255,0.8);
 }
 
 @keyframes fall {
@@ -111,21 +104,14 @@ button:hover {
 <body>
 
 <div class="card">
-    <div class="heart">❤️</div>
-    <h1>Happy Birthday, Pooja</h1>
+    <h1>Happy Birthday, Pooja ❤️</h1>
 
     <div id="text"></div>
     <div id="signature" class="signature"></div>
 
-    <button onclick="startSurprise()">Tap here, Pooja ❤️</button>
+    <button id="startBtn" onclick="startSurprise()">Tap here, Pooja ❤️</button>
 
-    <!-- Hidden Music Player -->
-    <iframe id="music"
-        width="0" height="0"
-        src="https://www.youtube.com/embed/9h1davKgBYM?enablejsapi=1"
-        frameborder="0"
-        allow="autoplay">
-    </iframe>
+    <div id="musicBox"></div>
 </div>
 
 <script>
@@ -142,14 +128,19 @@ It would choose you — every day 💖`;
 
 const signature = `~ Rudra`;
 
-let i = 0;
-let j = 0;
+let i = 0, j = 0;
+const textDiv = document.getElementById("text");
+const signDiv = document.getElementById("signature");
 
 function typeText() {
     if (i < message.length) {
-        document.getElementById("text").innerHTML += message.charAt(i);
-        i++;
+        textDiv.innerHTML += message.charAt(i++);
         setTimeout(typeText, 45);
+
+        // Start music AFTER first line completes
+        if (i === message.indexOf("\n") + 1) {
+            startMusic();
+        }
     } else {
         typeSignature();
     }
@@ -157,30 +148,36 @@ function typeText() {
 
 function typeSignature() {
     if (j < signature.length) {
-        document.getElementById("signature").innerHTML += signature.charAt(j);
-        j++;
+        signDiv.innerHTML += signature.charAt(j++);
         setTimeout(typeSignature, 90);
     }
 }
 
+function startMusic() {
+    document.getElementById("musicBox").innerHTML = `
+        <p style="font-size:14px;opacity:0.9;">🎵 Time in a Bottle – Jim Croce</p>
+        <iframe width="300" height="170"
+            src="https://www.youtube.com/embed/9h1davKgBYM?autoplay=1"
+            allow="autoplay; encrypted-media"
+            frameborder="0">
+        </iframe>
+    `;
+}
+
 function startSurprise() {
     typeText();
-
-    const iframe = document.getElementById("music");
-    iframe.src += "&autoplay=1";
-
-    event.target.style.display = "none";
+    document.getElementById("startBtn").style.display = "none";
 }
 
 // Falling hearts
-for (let i = 0; i < 30; i++) {
-    let heart = document.createElement("div");
-    heart.className = "heart-fall";
-    heart.innerHTML = "❤️";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.animationDuration = (5 + Math.random() * 5) + "s";
-    heart.style.fontSize = (14 + Math.random() * 24) + "px";
-    document.body.appendChild(heart);
+for (let k = 0; k < 28; k++) {
+    let h = document.createElement("div");
+    h.className = "heart-fall";
+    h.innerHTML = "❤️";
+    h.style.left = Math.random() * 100 + "vw";
+    h.style.animationDuration = (6 + Math.random() * 6) + "s";
+    h.style.fontSize = (14 + Math.random() * 24) + "px";
+    document.body.appendChild(h);
 }
 </script>
 
