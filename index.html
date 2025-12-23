@@ -8,20 +8,20 @@
 body {
     margin: 0;
     height: 100vh;
+    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
     font-family: 'Segoe UI', sans-serif;
     color: white;
-    overflow: hidden;
-
-    /* Animated purple gradient */
-    background: linear-gradient(270deg, #7b2ff7, #f107a3, #6a0dad, #8a2be2);
-    background-size: 800% 800%;
-    animation: gradientGlow 15s ease infinite;
+    
+    /* Animated dark violet gradient */
+    background: linear-gradient(270deg, #4b0082, #6a0dad, #8a2be2);
+    background-size: 600% 600%;
+    animation: gradientShift 20s ease infinite;
 }
 
-@keyframes gradientGlow {
+@keyframes gradientShift {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
