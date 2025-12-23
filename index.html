@@ -15,30 +15,26 @@ body {
     font-family: 'Segoe UI', sans-serif;
     color: white;
 }
-
 .card {
-    background: rgba(0, 0, 0, 0.35);
+    background: rgba(0,0,0,0.35);
     padding: 40px;
     border-radius: 25px;
     text-align: center;
     max-width: 420px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    animation: fadeIn 2s ease;
 }
-
 h1 {
     font-size: 38px;
     text-shadow: 0 0 10px rgba(255,255,255,0.4);
 }
-
 #text {
     font-size: 18px;
     line-height: 1.7;
-    min-height: 240px;
-    text-align: center;
-    white-space: pre-wrap;
+    min-height: 260px;
+    white-space: pre-line;
     text-shadow: 0 0 8px rgba(255,182,193,0.6);
 }
-
 .signature {
     margin-top: 12px;
     font-style: italic;
@@ -47,7 +43,6 @@ h1 {
     text-shadow: 0 0 16px rgba(255,182,193,1);
     animation: glowPulse 2.5s infinite;
 }
-
 button {
     margin-top: 20px;
     padding: 12px 26px;
@@ -59,24 +54,22 @@ button {
     color: white;
     box-shadow: 0 0 12px rgba(255,77,109,0.8);
 }
-
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 @keyframes glowPulse {
     0% { text-shadow: 0 0 8px rgba(255,182,193,0.6); }
     50% { text-shadow: 0 0 18px rgba(255,182,193,1); }
     100% { text-shadow: 0 0 8px rgba(255,182,193,0.6); }
 }
-
 .heart-fall {
     position: absolute;
     top: -10px;
     animation: fall linear infinite;
 }
-
 @keyframes fall {
-    to {
-        transform: translateY(110vh);
-        opacity: 0;
-    }
+    to { transform: translateY(110vh); opacity: 0; }
 }
 </style>
 </head>
@@ -93,66 +86,62 @@ button {
 </div>
 
 <script>
+// Lines synced with song timing (adjust delays to match your MP3)
+const lines = [
+    { text: "If time could pause,", delay: 1200 },
+    { text: "it would stop with you.", delay: 1800 },
+    { text: "In moments soft,", delay: 1600 },
+    { text: "in skies of blue.", delay: 1800 },
+    { text: "You are the wish the stars once knew,", delay: 2200 },
+    { text: "a quiet dream that came true ✨", delay: 2600 },
+    { text: "On your birthday and all days ahead,", delay: 2200 },
+    { text: "may love find you wherever you tread.", delay: 2600 },
+    { text: "And if my heart could softly say,", delay: 2200 },
+    { text: "it would choose you — every day 💖", delay: 3000 }
+];
+
+let lineIndex = 0;
 const textDiv = document.getElementById("text");
 const signDiv = document.getElementById("signature");
 const song = document.getElementById("song");
-const button = document.getElementById("startBtn");
 
-// Each line split into words with individual delays (ms)
-const words = [
-    {word:"If", delay:300}, {word:"time", delay:300}, {word:"could", delay:300}, {word:"pause,", delay:400},
-    {word:"it", delay:300}, {word:"would", delay:300}, {word:"stop", delay:300}, {word:"with", delay:300}, {word:"you,", delay:400},
-    
-    {word:"In", delay:300}, {word:"moments", delay:300}, {word:"soft,", delay:400}, {word:"in", delay:300}, {word:"skies", delay:300}, {word:"of", delay:300}, {word:"blue.", delay:400},
-
-    {word:"You", delay:300}, {word:"are", delay:300}, {word:"the", delay:300}, {word:"wish", delay:300}, {word:"the", delay:300}, {word:"stars", delay:300}, {word:"once", delay:300}, {word:"knew,", delay:400},
-    {word:"A", delay:300}, {word:"quiet", delay:300}, {word:"dream", delay:300}, {word:"that", delay:300}, {word:"came", delay:300}, {word:"true", delay:400},
-
-    {word:"On", delay:300}, {word:"your", delay:300}, {word:"birthday", delay:300}, {word:"and", delay:300}, {word:"all", delay:300}, {word:"days", delay:300}, {word:"ahead,", delay:400},
-    {word:"May", delay:300}, {word:"love", delay:300}, {word:"find", delay:300}, {word:"you", delay:300}, {word:"wherever", delay:300}, {word:"you", delay:300}, {word:"tread.", delay:400},
-
-    {word:"And", delay:300}, {word:"if", delay:300}, {word:"my", delay:300}, {word:"heart", delay:300}, {word:"could", delay:300}, {word:"softly", delay:300}, {word:"say,", delay:400},
-    {word:"It", delay:300}, {word:"would", delay:300}, {word:"choose", delay:300}, {word:"you", delay:300}, {word:"—", delay:300}, {word:"every", delay:300}, {word:"day", delay:400}, {word:"💖", delay:500}
-];
-
-let currentWord = 0;
-
-function showNextWord() {
-    if(currentWord < words.length){
-        textDiv.innerHTML += words[currentWord].word + " ";
-        setTimeout(showNextWord, words[currentWord].delay);
-        currentWord++;
+function showNextLine() {
+    if(lineIndex < lines.length){
+        textDiv.innerHTML += lines[lineIndex].text + "<br><br>";
+        setTimeout(showNextLine, lines[lineIndex].delay);
+        lineIndex++;
     } else {
         signDiv.innerHTML = "~ Rudra";
     }
 }
 
 function startSurprise() {
-    showNextWord();
+    showNextLine();
     song.volume = 0;
     song.play();
-
     let v = 0;
-    const fade = setInterval(()=>{
-        if(v<0.85){
+    const fade = setInterval(() => {
+        if(v < 0.85){
             v += 0.05;
             song.volume = v;
-        } else { clearInterval(fade); }
-    },300);
-
-    button.style.display = "none";
+        } else {
+            clearInterval(fade);
+        }
+    }, 300);
+    document.getElementById("startBtn").style.display = "none";
 }
 
-// Falling hearts
-for (let k=0;k<28;k++){
-    let h=document.createElement("div");
+// Falling hearts animation
+for(let k=0; k<28; k++){
+    let h = document.createElement("div");
     h.className="heart-fall";
     h.innerHTML="❤️";
-    h.style.left=Math.random()*100+"vw";
-    h.style.animationDuration=(6+Math.random()*6)+"s";
-    h.style.fontSize=(14+Math.random()*24)+"px";
+    h.style.left = Math.random()*100 + "vw";
+    h.style.animationDuration = (6 + Math.random()*6) + "s";
+    h.style.fontSize = (14 + Math.random()*24) + "px";
     document.body.appendChild(h);
 }
 </script>
+
 </body>
 </html>
