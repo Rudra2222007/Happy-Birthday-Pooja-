@@ -3,11 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Happy Birthday Pooja ❤️</title>
+
 <style>
 body {
     margin: 0;
     height: 100vh;
-    background: linear-gradient(135deg, #ff6f91, #ff9671);
+    background: darkviolet;
     overflow: hidden;
     display: flex;
     justify-content: center;
@@ -17,13 +18,13 @@ body {
 }
 
 .card {
-    position: relative;
     background: rgba(0, 0, 0, 0.35);
     padding: 40px;
     border-radius: 25px;
     text-align: center;
-    max-width: 500px;
+    max-width: 420px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    animation: fadeIn 2s ease;
 }
 
 h1 {
@@ -32,49 +33,20 @@ h1 {
 }
 
 #text {
-    font-size: 20px;
-    line-height: 1.8;
-    min-height: 260px;
-    position: relative;
-    z-index: 2;
-    display: inline-block;
-    text-align: center;
-}
-
-/* glowing ring behind text */
-.glow-ring {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 420px;
-    height: 220px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(255,182,193,0.3), rgba(255,182,193,0));
-    filter: blur(50px);
-    z-index: 1;
-    animation: pulse 2.5s infinite;
-}
-
-@keyframes pulse {
-    0% { transform: translate(-50%, -50%) scale(1); opacity: 0.7; }
-    50% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
-    100% { transform: translate(-50%, -50%) scale(1); opacity: 0.7; }
+    font-size: 18px;
+    line-height: 1.7;
+    min-height: 240px;
+    white-space: pre-line;
+    text-shadow: 0 0 8px rgba(255,182,193,0.6);
 }
 
 .signature {
     margin-top: 12px;
     font-style: italic;
-    font-size: 18px;
+    font-size: 17px;
     color: #ffd6e0;
     text-shadow: 0 0 16px rgba(255,182,193,1);
     animation: glowPulse 2.5s infinite;
-}
-
-@keyframes glowPulse {
-    0% { text-shadow: 0 0 8px rgba(255,182,193,0.6); }
-    50% { text-shadow: 0 0 18px rgba(255,182,193,1); }
-    100% { text-shadow: 0 0 8px rgba(255,182,193,0.6); }
 }
 
 button {
@@ -89,6 +61,19 @@ button {
     box-shadow: 0 0 12px rgba(255,77,109,0.8);
 }
 
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes glowPulse {
+    0% { text-shadow: 0 0 8px rgba(255,182,193,0.6); }
+    50% { text-shadow: 0 0 18px rgba(255,182,193,1); }
+    100% { text-shadow: 0 0 8px rgba(255,182,193,0.6); }
+}
+
+/* Falling hearts */
 .heart-fall {
     position: absolute;
     top: -10px;
@@ -103,73 +88,86 @@ button {
 }
 </style>
 </head>
+
 <body>
 
 <div class="card">
     <h1>Happy Birthday, Pooja ❤️</h1>
-    <div class="glow-ring"></div>
+
     <div id="text"></div>
     <div id="signature" class="signature"></div>
 
     <button id="startBtn" onclick="startSurprise()">Tap here, Pooja ❤️</button>
+
+    <!-- MP3 Audio -->
     <audio id="song" preload="auto">
         <source src="ReelAudio-16362.mp3" type="audio/mpeg">
     </audio>
 </div>
 
 <script>
-const poem = `If time could pause, it would stop with you, 
-In moments soft, in skies of blue. 
-You are the wish the stars once knew, 
-A quiet dream that came true ✨ 
-On your birthday and all days ahead, 
-May love find you wherever you tread. 
-And if my heart could softly say, 
+const message = `If time could pause, it would stop with you,
+In moments soft, in skies of blue.
+
+You are the wish the stars once knew,
+A quiet dream that came true ✨
+
+On your birthday and all days ahead,
+May love find you wherever you tread.
+And if my heart could softly say,
 It would choose you — every day 💖`;
 
+const signature = `~ Rudra`;
+
+let i = 0, j = 0;
 const textDiv = document.getElementById("text");
 const signDiv = document.getElementById("signature");
 const song = document.getElementById("song");
-const words = poem.split(' ');
 
-let wordIndex = 0;
-
-function typeWord() {
-    if(wordIndex < words.length){
-        textDiv.innerHTML += words[wordIndex] + ' ';
-        wordIndex++;
-        setTimeout(typeWord, 300); // adjust delay for flow with song
+function typeText() {
+    if (i < message.length) {
+        textDiv.innerHTML += message.charAt(i++);
+        setTimeout(typeText, 45);
     } else {
-        signDiv.innerHTML = "~ Rudra";
+        typeSignature();
     }
 }
 
-function startSurprise(){
-    // start the typewriter effect
-    typeWord();
+function typeSignature() {
+    if (j < signature.length) {
+        signDiv.innerHTML += signature.charAt(j++);
+        setTimeout(typeSignature, 90);
+    }
+}
 
-    // play audio with fade-in
+function startSurprise() {
+    typeText();
+
+    // Play music with soft fade-in
     song.volume = 0;
     song.play();
+
     let v = 0;
-    const fade = setInterval(()=>{
-        if(v < 0.85){
+    const fade = setInterval(() => {
+        if (v < 0.85) {
             v += 0.05;
             song.volume = v;
-        } else clearInterval(fade);
-    },300);
+        } else {
+            clearInterval(fade);
+        }
+    }, 300);
 
     document.getElementById("startBtn").style.display = "none";
 }
 
-// falling hearts
-for(let k=0;k<28;k++){
+// Falling hearts
+for (let k = 0; k < 28; k++) {
     let h = document.createElement("div");
     h.className = "heart-fall";
     h.innerHTML = "❤️";
-    h.style.left = Math.random()*100 + "vw";
-    h.style.animationDuration = (6 + Math.random()*6) + "s";
-    h.style.fontSize = (14 + Math.random()*24) + "px";
+    h.style.left = Math.random() * 100 + "vw";
+    h.style.animationDuration = (6 + Math.random() * 6) + "s";
+    h.style.fontSize = (14 + Math.random() * 24) + "px";
     document.body.appendChild(h);
 }
 </script>
