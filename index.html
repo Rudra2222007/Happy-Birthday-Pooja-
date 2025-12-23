@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday Pooja ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #ff6f91, #ff9671);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', sans-serif;
+    color: white;
+}
+
+.card {
+    background: rgba(0, 0, 0, 0.35);
+    padding: 40px;
+    border-radius: 25px;
+    text-align: center;
+    max-width: 420px;
+    z-index: 2;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    animation: fadeIn 2s ease;
+}
+
+h1 {
+    font-size: 38px;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 18px;
+    line-height: 1.7;
+}
+
+.heart {
+    font-size: 42px;
+    animation: pulse 1.5s infinite;
+}
+
+iframe {
+    margin-top: 20px;
+    border-radius: 15px;
+}
+
+/* Animations */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.25); }
+    100% { transform: scale(1); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Falling hearts */
+.heart-fall {
+    position: absolute;
+    top: -10px;
+    color: rgba(255,255,255,0.8);
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh);
+        opacity: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <div class="heart">❤️</div>
+    <h1>Happy Birthday, Pooja</h1>
+
+    <p>
+        If time could pause, it would stop with you,<br>
+        In moments soft, in skies of blue.<br><br>
+
+        You are the wish the stars once knew,<br>
+        A quiet dream that came true ✨<br><br>
+
+        On your birthday and all days ahead,<br>
+        May love find you wherever you tread.<br>
+        And if my heart could softly say,<br>
+        It would choose you — every day 💖
+    </p>
+
+    <!-- Music -->
+    <iframe width="300" height="170"
+        src="https://www.youtube.com/embed/9h1davKgBYM?autoplay=1&mute=0"
+        title="Time in a Bottle - Jim Croce"
+        frameborder="0"
+        allow="autoplay; encrypted-media"
+        allowfullscreen>
+    </iframe>
+</div>
+
+<script>
+// Falling hearts generator
+for (let i = 0; i < 30; i++) {
+    let heart = document.createElement("div");
+    heart.className = "heart-fall";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (5 + Math.random() * 5) + "s";
+    heart.style.fontSize = (14 + Math.random() * 24) + "px";
+    document.body.appendChild(heart);
+}
+</script>
+
+</body>
+</html>
