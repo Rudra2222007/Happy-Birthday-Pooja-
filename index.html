@@ -8,39 +8,35 @@ body {
     margin: 0;
     height: 100vh;
     background: linear-gradient(135deg, #ff6f91, #ff9671);
+    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
     font-family: 'Segoe UI', sans-serif;
-    overflow: hidden;
-    position: relative;
+    color: white;
 }
 
 .card {
-    position: relative;
-    background: rgba(0,0,0,0.35);
-    padding: 40px 30px;
+    background: rgba(0, 0, 0, 0.35);
+    padding: 40px;
     border-radius: 25px;
     text-align: center;
-    max-width: 420px;
+    max-width: 450px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-    z-index: 2;
+    animation: fadeIn 2s ease;
 }
 
 h1 {
     font-size: 38px;
     text-shadow: 0 0 10px rgba(255,255,255,0.4);
-    margin-bottom: 20px;
 }
 
 #text {
     font-size: 18px;
     line-height: 1.7;
-    min-height: 240px;
+    min-height: 260px;
     white-space: pre-line;
     text-shadow: 0 0 8px rgba(255,182,193,0.6);
-    position: relative;
-    z-index: 2;
 }
 
 .signature {
@@ -50,7 +46,6 @@ h1 {
     color: #ffd6e0;
     text-shadow: 0 0 16px rgba(255,182,193,1);
     animation: glowPulse 2.5s infinite;
-    z-index: 2;
 }
 
 button {
@@ -65,14 +60,10 @@ button {
     box-shadow: 0 0 12px rgba(255,77,109,0.8);
 }
 
-audio {
-    display: none;
-}
-
-.emoji {
-    position: absolute;
-    font-size: 24px;
-    opacity: 0.7;
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes glowPulse {
@@ -81,15 +72,18 @@ audio {
     100% { text-shadow: 0 0 8px rgba(255,182,193,0.6); }
 }
 
+/* Falling hearts */
 .heart-fall {
     position: absolute;
     top: -10px;
     animation: fall linear infinite;
-    font-size: 14px;
 }
 
 @keyframes fall {
-    to { transform: translateY(110vh); opacity: 0; }
+    to {
+        transform: translateY(110vh);
+        opacity: 0;
+    }
 }
 </style>
 </head>
@@ -97,16 +91,18 @@ audio {
 
 <div class="card">
     <h1>Happy Birthday, Pooja ❤️</h1>
+
     <div id="text"></div>
     <div id="signature" class="signature"></div>
+
     <button id="startBtn" onclick="startSurprise()">Tap here, Pooja ❤️</button>
+
     <audio id="song" preload="auto">
         <source src="ReelAudio-16362.mp3" type="audio/mpeg">
     </audio>
 </div>
 
 <script>
-// Lines synced with approximate melody flow (adjust delays if needed)
 const lines = [
   { text: "If time could pause,", delay: 1200 },
   { text: "it would stop with you.", delay: 1800 },
@@ -138,13 +134,17 @@ function showNextLine() {
 function startSurprise() {
     showNextLine();
 
-    // Play song with soft fade-in
     song.volume = 0;
     song.play();
+
     let v = 0;
     const fade = setInterval(() => {
-        if (v < 0.85) { v += 0.05; song.volume = v; } 
-        else { clearInterval(fade); }
+        if (v < 0.85) {
+            v += 0.05;
+            song.volume = v;
+        } else {
+            clearInterval(fade);
+        }
     }, 300);
 
     document.getElementById("startBtn").style.display = "none";
@@ -160,18 +160,7 @@ for (let k = 0; k < 28; k++) {
     h.style.fontSize = (14 + Math.random() * 24) + "px";
     document.body.appendChild(h);
 }
-
-// Still emojis around the text box
-const emojis = ["✨","💖","🌸","🌷","🌟"];
-for (let i = 0; i < 15; i++) {
-    let e = document.createElement("div");
-    e.className = "emoji";
-    e.innerHTML = emojis[Math.floor(Math.random()*emojis.length)];
-    e.style.top = (Math.random()*120 - 20) + "px"; // around card
-    e.style.left = (Math.random()*420 - 20) + "px";
-    e.style.transform = `rotate(${Math.random()*360}deg)`;
-    document.querySelector(".card").appendChild(e);
-}
 </script>
+
 </body>
 </html>
