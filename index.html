@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Birthday Surprise Envelope</title>
+<title>Happy Birthday Pooja ❤️</title>
 <style>
 body {
     margin: 0;
     height: 100vh;
-    background: linear-gradient(135deg, #ff6f91, #ff9671);
+    background: linear-gradient(135deg,#ff6f91,#ff9671);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15,80 +15,74 @@ body {
     overflow: hidden;
 }
 
-/* Envelope */
 .envelope {
-    width: 320px;
-    height: 200px;
-    background: gold;
-    position: relative;
-    cursor: pointer;
+    width: 400px;
+    height: 250px;
     perspective: 1000px;
-    border-radius: 12px;
+    cursor: pointer;
 }
 
-.flap {
-    width: 320px;
-    height: 100px;
-    background: gold;
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform-origin: top;
-    transition: transform 1s ease-in-out;
-    z-index: 2;
-    border-bottom-left-radius: 12px;
-    border-bottom-right-radius: 12px;
-}
-
-/* Card inside */
-.card-container {
+.envelope-inner {
     width: 100%;
     height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    transition: opacity 1s ease;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 2s ease;
 }
 
-.card {
+.envelope.flipped .envelope-inner {
+    transform: rotateX(-180deg);
+}
+
+.front, .back {
+    position: absolute;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.35);
+    backface-visibility: hidden;
     border-radius: 12px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+}
+
+.front {
+    background: #ff4d6d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+.back {
+    background: white;
+    transform: rotateX(180deg);
     padding: 20px;
     box-sizing: border-box;
     text-align: center;
-    color: white;
-    overflow: hidden;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-}
-
-/* Glow and text */
-#text {
-    font-size: 16px;
-    line-height: 1.5;
-    min-height: 120px;
-    white-space: pre-line;
-    text-shadow: 0 0 8px rgba(255,182,193,0.6);
+    font-size: 18px;
+    color: #ff4d6d;
 }
 
 .signature {
-    margin-top: 8px;
+    margin-top: 15px;
     font-style: italic;
-    font-size: 15px;
-    color: #ffd6e0;
-    text-shadow: 0 0 14px rgba(255,182,193,1);
-    animation: glowPulse 2.5s infinite;
+    font-size: 16px;
+    color: #ff4d6d;
+    text-shadow: 0 0 12px rgba(255,182,193,0.8);
 }
 
-@keyframes glowPulse {
-    0% { text-shadow: 0 0 8px rgba(255,182,193,0.6); }
-    50% { text-shadow: 0 0 16px rgba(255,182,193,1); }
-    100% { text-shadow: 0 0 8px rgba(255,182,193,0.6); }
+button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 20px;
+    border: none;
+    background: #ff4d6d;
+    color: white;
+    cursor: pointer;
 }
 
-/* Falling hearts */
 .heart-fall {
     position: absolute;
     top: -10px;
@@ -96,24 +90,18 @@ body {
 }
 
 @keyframes fall {
-    to {
-        transform: translateY(110vh);
-        opacity: 0;
-    }
+    to { transform: translateY(110vh); opacity: 0; }
 }
 </style>
 </head>
 <body>
 
 <div class="envelope" id="envelope">
-    <div class="flap" id="flap"></div>
-
-    <div class="card-container" id="cardContainer">
-        <div class="card">
-            <h1>Happy Birthday, Pooja ❤️</h1>
-            <div id="text"></div>
-            <div id="signature" class="signature"></div>
-            <!-- Audio -->
+    <div class="envelope-inner">
+        <div class="front">Tap to Open Pooja's Birthday Surprise ❤️</div>
+        <div class="back">
+            <div id="message"></div>
+            <div class="signature">~ Rudra</div>
             <audio id="song" preload="auto">
                 <source src="ReelAudio-16362.mp3" type="audio/mpeg">
             </audio>
@@ -122,73 +110,54 @@ body {
 </div>
 
 <script>
-const message = `If time could pause, it would stop with you,
-In moments soft, in skies of blue.
+const envelope = document.getElementById('envelope');
+const messageDiv = document.getElementById('message');
+const song = document.getElementById('song');
 
-You are the wish the stars once knew,
-A quiet dream that came true ✨
+const lines = [
+    "If time could pause, it would stop with you,",
+    "In moments soft, in skies of blue.",
+    "You are the wish the stars once knew,",
+    "A quiet dream that came true ✨",
+    "On your birthday and all days ahead,",
+    "May love find you wherever you tread.",
+    "And if my heart could softly say,",
+    "It would choose you — every day 💖"
+];
 
-On your birthday and all days ahead,
-May love find you wherever you tread.
-And if my heart could softly say,
-It would choose you — every day 💖`;
-
-const signatureText = "~ Rudra";
-
-const textDiv = document.getElementById("text");
-const signatureDiv = document.getElementById("signature");
-const song = document.getElementById("song");
-const flap = document.getElementById("flap");
-const cardContainer = document.getElementById("cardContainer");
-
-let i = 0, j = 0;
-
-// Typewriter for poem
-function typeText() {
-    if (i < message.length) {
-        textDiv.innerHTML += message.charAt(i++);
-        setTimeout(typeText, 45);
-    } else {
-        typeSignature();
-    }
-}
-
-function typeSignature() {
-    if (j < signatureText.length) {
-        signatureDiv.innerHTML += signatureText.charAt(j++);
-        setTimeout(typeSignature, 90);
-    }
-}
-
-// Open flap on click
-document.getElementById("envelope").addEventListener("click", () => {
-    flap.style.transform = "rotateX(-180deg)";
-    cardContainer.style.opacity = 1;
-
-    // Start text and music
-    typeText();
+envelope.addEventListener('click', () => {
+    envelope.classList.add('flipped');
     song.volume = 0;
     song.play();
-
+    // Soft fade-in music
     let v = 0;
-    const fade = setInterval(() => {
-        if (v < 0.85) {
-            v += 0.05;
-            song.volume = v;
-        } else clearInterval(fade);
-    }, 300);
+    const fade = setInterval(()=>{
+        if(v<0.85){v+=0.05;song.volume=v;}
+        else clearInterval(fade);
+    },300);
 
-    // Falling hearts
-    for (let k = 0; k < 28; k++) {
-        let h = document.createElement("div");
-        h.className = "heart-fall";
-        h.innerHTML = "❤️";
-        h.style.left = Math.random() * 100 + "vw";
-        h.style.animationDuration = (6 + Math.random() * 6) + "s";
-        h.style.fontSize = (14 + Math.random() * 24) + "px";
-        document.body.appendChild(h);
+    // Show lines one by one
+    let i=0;
+    function showLine() {
+        if(i<lines.length){
+            messageDiv.innerHTML += lines[i]+"<br><br>";
+            i++;
+            setTimeout(showLine, 2000); // adjust timing to sync with music
+        }
     }
+    showLine();
 });
+
+// Falling hearts
+for(let k=0;k<30;k++){
+    let h=document.createElement("div");
+    h.className="heart-fall";
+    h.innerHTML="❤️";
+    h.style.left=Math.random()*100+"vw";
+    h.style.animationDuration=(5+Math.random()*5)+"s";
+    h.style.fontSize=(14+Math.random()*24)+"px";
+    document.body.appendChild(h);
+}
 </script>
 </body>
 </html>
