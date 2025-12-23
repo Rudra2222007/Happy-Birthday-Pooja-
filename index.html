@@ -86,19 +86,69 @@ button {
 </div>
 
 <script>
-// Lines synced with song timing (adjust delays to match your MP3)
 const lines = [
-    { text: "If time could pause,", delay: 1200 },
-    { text: "it would stop with you.", delay: 1800 },
-    { text: "In moments soft,", delay: 1600 },
-    { text: "in skies of blue.", delay: 1800 },
-    { text: "You are the wish the stars once knew,", delay: 2200 },
-    { text: "a quiet dream that came true ✨", delay: 2600 },
-    { text: "On your birthday and all days ahead,", delay: 2200 },
-    { text: "may love find you wherever you tread.", delay: 2600 },
-    { text: "And if my heart could softly say,", delay: 2200 },
-    { text: "it would choose you — every day 💖", delay: 3000 }
+  "If time could pause, it would stop with you,",
+  "In moments soft, in skies of blue.",
+  "You are the wish the stars once knew,",
+  "A quiet dream that came true ✨",
+  "On your birthday and all days ahead,",
+  "May love find you wherever you tread.",
+  "And if my heart could softly say,",
+  "It would choose you — every day 💖"
 ];
+
+const textDiv = document.getElementById("text");
+const signDiv = document.getElementById("signature");
+const song = document.getElementById("song");
+
+function fadeInWord(word, delay) {
+    const span = document.createElement("span");
+    span.textContent = word + " ";
+    span.style.opacity = 0;
+    span.style.transition = "opacity 0.6s ease";
+    textDiv.appendChild(span);
+    setTimeout(() => {
+        span.style.opacity = 1;
+    }, delay);
+}
+
+function showLineWords(line, baseDelay) {
+    const words = line.split(" ");
+    words.forEach((word, index) => {
+        fadeInWord(word, baseDelay + index * 400); // 400ms between words
+    });
+    return baseDelay + words.length * 400 + 600; // return delay for next line
+}
+
+function showAllLines() {
+    let delay = 0;
+    lines.forEach(line => {
+        delay = showLineWords(line, delay);
+        delay += 600; // small pause between lines
+    });
+
+    // show signature after all lines
+    setTimeout(() => {
+        signDiv.innerHTML = "~ Rudra";
+    }, delay);
+}
+
+function startSurprise() {
+    song.volume = 0;
+    song.play();
+    let v = 0;
+    const fade = setInterval(() => {
+        if (v < 0.85) {
+            v += 0.05;
+            song.volume = v;
+        } else {
+            clearInterval(fade);
+        }
+    }, 300);
+
+    showAllLines();
+    document.getElementById("startBtn").style.display = "none";
+}
 
 let lineIndex = 0;
 const textDiv = document.getElementById("text");
