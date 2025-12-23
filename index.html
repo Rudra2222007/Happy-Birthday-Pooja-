@@ -1,9 +1,8 @@
-  <!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Happy Birthday Pooja ❤️</title>
-
 <style>
 body {
     margin: 0;
@@ -24,6 +23,7 @@ body {
     text-align: center;
     max-width: 420px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    animation: fadeIn 2s ease;
 }
 
 h1 {
@@ -34,7 +34,7 @@ h1 {
 #text {
     font-size: 18px;
     line-height: 1.7;
-    min-height: 240px;
+    min-height: 300px;
     white-space: pre-line;
     text-shadow: 0 0 8px rgba(255,182,193,0.6);
 }
@@ -60,11 +60,12 @@ button {
     box-shadow: 0 0 12px rgba(255,77,109,0.8);
 }
 
-audio {
-    display: none;
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-/* Animations */
 @keyframes glowPulse {
     0% { text-shadow: 0 0 8px rgba(255,182,193,0.6); }
     50% { text-shadow: 0 0 18px rgba(255,182,193,1); }
@@ -86,7 +87,6 @@ audio {
 }
 </style>
 </head>
-
 <body>
 
 <div class="card">
@@ -97,35 +97,33 @@ audio {
 
     <button id="startBtn" onclick="startSurprise()">Tap here, Pooja ❤️</button>
 
+    <!-- MP3 Audio -->
     <audio id="song" preload="auto">
         <source src="ReelAudio-16362.mp3" type="audio/mpeg">
     </audio>
 </div>
 
 <script>
-// Lines synced roughly with song flow
+// Timed lines synced with the song
 const lines = [
-    { text: "If time could pause,", delay: 1200 },
-    { text: "it would stop with you.", delay: 1800 },
-
-    { text: "In moments soft,", delay: 1600 },
-    { text: "in skies of blue.", delay: 1800 },
-
-    { text: "You are the wish the stars once knew,", delay: 2200 },
-    { text: "a quiet dream that came true ✨", delay: 2600 },
-
-    { text: "On your birthday and all days ahead,", delay: 2200 },
-    { text: "may love find you wherever you tread.", delay: 2600 },
-
-    { text: "And if my heart could softly say,", delay: 2200 },
-    { text: "it would choose you — every day 💖", delay: 3000 }
+  { text: "If time could pause,", delay: 1200 },
+  { text: "it would stop with you.", delay: 1800 },
+  { text: "In moments soft,", delay: 1600 },
+  { text: "in skies of blue.", delay: 1800 },
+  { text: "You are the wish the stars once knew,", delay: 2200 },
+  { text: "a quiet dream that came true ✨", delay: 2600 },
+  { text: "On your birthday and all days ahead,", delay: 2200 },
+  { text: "may love find you wherever you tread.", delay: 2600 },
+  { text: "And if my heart could softly say,", delay: 2200 },
+  { text: "it would choose you — every day 💖", delay: 3000 }
 ];
 
+let lineIndex = 0;
 const textDiv = document.getElementById("text");
 const signDiv = document.getElementById("signature");
 const song = document.getElementById("song");
-let lineIndex = 0;
 
+// Display each line in sync
 function showNextLine() {
     if (lineIndex < lines.length) {
         textDiv.innerHTML += lines[lineIndex].text + "<br><br>";
@@ -140,13 +138,14 @@ function showSignature() {
     signDiv.innerHTML = "~ Rudra";
 }
 
+// Start the surprise
 function startSurprise() {
     showNextLine();
 
-    // Play music with soft fade-in
     song.volume = 0;
     song.play();
 
+    // Soft fade-in
     let v = 0;
     const fade = setInterval(() => {
         if (v < 0.85) {
@@ -160,7 +159,7 @@ function startSurprise() {
     document.getElementById("startBtn").style.display = "none";
 }
 
-// Falling hearts
+// Falling hearts animation
 for (let k = 0; k < 28; k++) {
     let h = document.createElement("div");
     h.className = "heart-fall";
@@ -173,4 +172,4 @@ for (let k = 0; k < 28; k++) {
 </script>
 
 </body>
-</html>
+</html> 
