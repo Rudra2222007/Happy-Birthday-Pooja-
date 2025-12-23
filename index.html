@@ -28,24 +28,27 @@ body {
     animation: fadeIn 2s ease;
 }
 
-h1 {
-    font-size: 38px;
-    margin-bottom: 10px;
-}
-
-p {
-    font-size: 18px;
-    line-height: 1.7;
-}
+h1 { font-size: 38px; }
+p { font-size: 18px; line-height: 1.7; }
 
 .heart {
     font-size: 42px;
     animation: pulse 1.5s infinite;
 }
 
-iframe {
-    margin-top: 20px;
-    border-radius: 15px;
+button {
+    margin-top: 15px;
+    padding: 12px 22px;
+    font-size: 16px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    background: #ff4d6d;
+    color: white;
+}
+
+button:hover {
+    background: #ff2e55;
 }
 
 /* Animations */
@@ -64,8 +67,8 @@ iframe {
 .heart-fall {
     position: absolute;
     top: -10px;
-    color: rgba(255,255,255,0.8);
     animation: fall linear infinite;
+    color: rgba(255,255,255,0.8);
 }
 
 @keyframes fall {
@@ -96,18 +99,26 @@ iframe {
         It would choose you — every day 💖
     </p>
 
-    <!-- Music -->
-    <iframe width="300" height="170"
-        src="https://www.youtube.com/embed/9h1davKgBYM?autoplay=1&mute=0"
-        title="Time in a Bottle - Jim Croce"
+    <!-- Play Button -->
+    <button onclick="playMusic()">🎵 Tap to Play Our Song</button>
+
+    <!-- Hidden YouTube Player -->
+    <iframe id="music"
+        width="0" height="0"
+        src="https://www.youtube.com/embed/9h1davKgBYM?enablejsapi=1"
         frameborder="0"
-        allow="autoplay; encrypted-media"
-        allowfullscreen>
+        allow="autoplay">
     </iframe>
 </div>
 
 <script>
-// Falling hearts generator
+// Play music after user interaction
+function playMusic() {
+    const iframe = document.getElementById("music");
+    iframe.src += "&autoplay=1";
+}
+
+// Falling hearts
 for (let i = 0; i < 30; i++) {
     let heart = document.createElement("div");
     heart.className = "heart-fall";
