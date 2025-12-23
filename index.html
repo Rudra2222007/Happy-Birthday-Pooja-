@@ -1,8 +1,9 @@
-                    <!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Happy Birthday Pooja ❤️</title>
+
 <style>
 body {
     margin: 0;
@@ -17,13 +18,12 @@ body {
 }
 
 .card {
-    background: rgba(0,0,0,0.35);
+    background: rgba(0, 0, 0, 0.35);
     padding: 40px;
     border-radius: 25px;
     text-align: center;
     max-width: 420px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-    animation: fadeIn 2s ease;
 }
 
 h1 {
@@ -60,11 +60,11 @@ button {
     box-shadow: 0 0 12px rgba(255,77,109,0.8);
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
+audio {
+    display: none;
 }
 
+/* Animations */
 @keyframes glowPulse {
     0% { text-shadow: 0 0 8px rgba(255,182,193,0.6); }
     50% { text-shadow: 0 0 18px rgba(255,182,193,1); }
@@ -86,39 +86,46 @@ button {
 }
 </style>
 </head>
+
 <body>
 
 <div class="card">
     <h1>Happy Birthday, Pooja ❤️</h1>
+
     <div id="text"></div>
     <div id="signature" class="signature"></div>
+
     <button id="startBtn" onclick="startSurprise()">Tap here, Pooja ❤️</button>
+
     <audio id="song" preload="auto">
         <source src="ReelAudio-16362.mp3" type="audio/mpeg">
     </audio>
 </div>
 
 <script>
-// Each line synced with approximate song flow (ms)
+// Lines synced roughly with song flow
 const lines = [
     { text: "If time could pause,", delay: 1200 },
     { text: "it would stop with you.", delay: 1800 },
+
     { text: "In moments soft,", delay: 1600 },
     { text: "in skies of blue.", delay: 1800 },
+
     { text: "You are the wish the stars once knew,", delay: 2200 },
     { text: "a quiet dream that came true ✨", delay: 2600 },
+
     { text: "On your birthday and all days ahead,", delay: 2200 },
     { text: "may love find you wherever you tread.", delay: 2600 },
+
     { text: "And if my heart could softly say,", delay: 2200 },
     { text: "it would choose you — every day 💖", delay: 3000 }
 ];
 
-let lineIndex = 0;
 const textDiv = document.getElementById("text");
 const signDiv = document.getElementById("signature");
 const song = document.getElementById("song");
+let lineIndex = 0;
 
-// Show lines one by one in sync with song
 function showNextLine() {
     if (lineIndex < lines.length) {
         textDiv.innerHTML += lines[lineIndex].text + "<br><br>";
@@ -133,11 +140,13 @@ function showSignature() {
     signDiv.innerHTML = "~ Rudra";
 }
 
-// Start the surprise
 function startSurprise() {
     showNextLine();
+
+    // Play music with soft fade-in
     song.volume = 0;
     song.play();
+
     let v = 0;
     const fade = setInterval(() => {
         if (v < 0.85) {
@@ -147,6 +156,7 @@ function startSurprise() {
             clearInterval(fade);
         }
     }, 300);
+
     document.getElementById("startBtn").style.display = "none";
 }
 
