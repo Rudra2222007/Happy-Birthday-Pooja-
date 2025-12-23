@@ -1,8 +1,9 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Happy Birthday Pooja ❤️</title>
+
 <style>
 body {
     margin: 0;
@@ -34,7 +35,7 @@ h1 {
 #text {
     font-size: 18px;
     line-height: 1.7;
-    min-height: 300px;
+    min-height: 240px;
     white-space: pre-line;
     text-shadow: 0 0 8px rgba(255,182,193,0.6);
 }
@@ -87,6 +88,7 @@ button {
 }
 </style>
 </head>
+
 <body>
 
 <div class="card">
@@ -104,48 +106,47 @@ button {
 </div>
 
 <script>
-// Timed lines synced with the song
-const lines = [
-  { text: "If time could pause,", delay: 1200 },
-  { text: "it would stop with you.", delay: 1800 },
-  { text: "In moments soft,", delay: 1600 },
-  { text: "in skies of blue.", delay: 1800 },
-  { text: "You are the wish the stars once knew,", delay: 2200 },
-  { text: "a quiet dream that came true ✨", delay: 2600 },
-  { text: "On your birthday and all days ahead,", delay: 2200 },
-  { text: "may love find you wherever you tread.", delay: 2600 },
-  { text: "And if my heart could softly say,", delay: 2200 },
-  { text: "it would choose you — every day 💖", delay: 3000 }
-];
+const message = `If time could pause, it would stop with you,
+In moments soft, in skies of blue.
 
-let lineIndex = 0;
+You are the wish the stars once knew,
+A quiet dream that came true ✨
+
+On your birthday and all days ahead,
+May love find you wherever you tread.
+And if my heart could softly say,
+It would choose you — every day 💖`;
+
+const signature = `~ Rudra`;
+
+let i = 0, j = 0;
 const textDiv = document.getElementById("text");
 const signDiv = document.getElementById("signature");
 const song = document.getElementById("song");
 
-// Display each line in sync
-function showNextLine() {
-    if (lineIndex < lines.length) {
-        textDiv.innerHTML += lines[lineIndex].text + "<br><br>";
-        setTimeout(showNextLine, lines[lineIndex].delay);
-        lineIndex++;
+function typeText() {
+    if (i < message.length) {
+        textDiv.innerHTML += message.charAt(i++);
+        setTimeout(typeText, 45);
     } else {
-        showSignature();
+        typeSignature();
     }
 }
 
-function showSignature() {
-    signDiv.innerHTML = "~ Rudra";
+function typeSignature() {
+    if (j < signature.length) {
+        signDiv.innerHTML += signature.charAt(j++);
+        setTimeout(typeSignature, 90);
+    }
 }
 
-// Start the surprise
 function startSurprise() {
-    showNextLine();
+    typeText();
 
+    // Play music with soft fade-in
     song.volume = 0;
     song.play();
 
-    // Soft fade-in
     let v = 0;
     const fade = setInterval(() => {
         if (v < 0.85) {
@@ -159,7 +160,7 @@ function startSurprise() {
     document.getElementById("startBtn").style.display = "none";
 }
 
-// Falling hearts animation
+// Falling hearts
 for (let k = 0; k < 28; k++) {
     let h = document.createElement("div");
     h.className = "heart-fall";
@@ -173,3 +174,4 @@ for (let k = 0; k < 28; k++) {
 
 </body>
 </html> 
+    
