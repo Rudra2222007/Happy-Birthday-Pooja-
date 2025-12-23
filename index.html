@@ -5,84 +5,86 @@
 <title>Happy Birthday Pooja ❤️</title>
 
 <style>
+/* RESET */
+* { box-sizing: border-box; }
+
 body {
     margin: 0;
     height: 100vh;
     overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     font-family: 'Segoe UI', sans-serif;
     color: white;
 }
 
-/* 🌈 Animated Gradient Background */
+/* 🌌 DARK VIOLET ANIMATED BACKGROUND */
 .background {
     position: fixed;
     inset: 0;
     background: linear-gradient(
-        -45deg,
-        #7f00ff,
-        #e100ff,
-        #ff4d6d,
-        #ff9671
+        120deg,
+        #1a002b,
+        #2b0040,
+        #3a0066,
+        #24003d
     );
-    background-size: 400% 400%;
-    animation: gradientMove 18s ease infinite;
-    z-index: -3;
+    background-size: 600% 600%;
+    animation: bgMove 16s ease infinite;
+    z-index: -5;
 }
 
-/* ✨ Glowing Orbs */
-.orb {
+@keyframes bgMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ✨ SPARKLE PARTICLES */
+.sparkle {
     position: absolute;
+    width: 4px;
+    height: 4px;
+    background: rgba(255,255,255,0.9);
     border-radius: 50%;
-    filter: blur(70px);
-    opacity: 0.45;
-    animation: floatOrb 20s linear infinite;
-    z-index: -2;
+    box-shadow: 0 0 8px rgba(255,255,255,1);
+    animation: sparkleFloat linear infinite;
+    z-index: -1;
 }
 
-.orb.one {
-    width: 300px;
-    height: 300px;
-    background: #ff8fab;
-    top: 10%;
-    left: 15%;
+@keyframes sparkleFloat {
+    from {
+        transform: translateY(110vh) scale(0);
+        opacity: 0;
+    }
+    30% { opacity: 1; }
+    to {
+        transform: translateY(-10vh) scale(1);
+        opacity: 0;
+    }
 }
 
-.orb.two {
-    width: 350px;
-    height: 350px;
-    background: #c77dff;
-    bottom: 15%;
-    right: 10%;
-    animation-duration: 26s;
+/* CARD */
+.wrapper {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.orb.three {
-    width: 250px;
-    height: 250px;
-    background: #ffd6e0;
-    top: 55%;
-    left: 60%;
-    animation-duration: 30s;
-}
-
-/* Card */
 .card {
-    background: rgba(0, 0, 0, 0.35);
+    background: rgba(0, 0, 0, 0.4);
     padding: 40px;
-    border-radius: 25px;
-    text-align: center;
+    border-radius: 26px;
     max-width: 420px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    text-align: center;
+    box-shadow: 0 0 40px rgba(183,130,255,0.4);
     animation: fadeIn 2s ease;
     z-index: 5;
 }
 
 h1 {
     font-size: 38px;
-    text-shadow: 0 0 10px rgba(255,255,255,0.4);
+    text-shadow: 0 0 18px rgba(200,160,255,0.9);
 }
 
 #text {
@@ -90,60 +92,63 @@ h1 {
     line-height: 1.7;
     min-height: 240px;
     white-space: pre-line;
-    text-shadow: 0 0 8px rgba(255,182,193,0.6);
+    text-shadow: 0 0 12px rgba(200,160,255,0.8);
 }
 
 .signature {
     margin-top: 12px;
     font-style: italic;
     font-size: 17px;
-    color: #ffd6e0;
-    text-shadow: 0 0 16px rgba(255,182,193,1);
+    color: #e6ccff;
     animation: glowPulse 2.5s infinite;
 }
 
 button {
     margin-top: 20px;
-    padding: 12px 26px;
+    padding: 12px 28px;
     font-size: 16px;
     border: none;
     border-radius: 30px;
     cursor: pointer;
-    background: #ff4d6d;
+    background: linear-gradient(135deg, #9d4edd, #5a189a);
     color: white;
-    box-shadow: 0 0 12px rgba(255,77,109,0.8);
+    box-shadow: 0 0 20px rgba(160,120,255,1);
 }
 
-/* Animations */
-@keyframes gradientMove {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-@keyframes floatOrb {
-    0% { transform: translate(0,0); }
-    50% { transform: translate(40px,-60px); }
-    100% { transform: translate(0,0); }
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes glowPulse {
-    0% { text-shadow: 0 0 8px rgba(255,182,193,0.6); }
-    50% { text-shadow: 0 0 18px rgba(255,182,193,1); }
-    100% { text-shadow: 0 0 8px rgba(255,182,193,0.6); }
-}
-
-/* Falling hearts */
+/* HEARTS */
 .heart-fall {
     position: absolute;
     top: -10px;
     animation: fall linear infinite;
-    z-index: 2;
+    z-index: 1;
+}
+
+/* CONFETTI */
+.confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    animation: confettiFall 2.5s ease-out forwards;
+    z-index: 10;
+}
+
+@keyframes confettiFall {
+    to {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+/* ANIMATIONS */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes glowPulse {
+    0% { text-shadow: 0 0 8px rgba(200,160,255,0.6); }
+    50% { text-shadow: 0 0 22px rgba(220,190,255,1); }
+    100% { text-shadow: 0 0 8px rgba(200,160,255,0.6); }
 }
 
 @keyframes fall {
@@ -157,27 +162,25 @@ button {
 
 <body>
 
-<!-- Animated Background -->
 <div class="background"></div>
-<div class="orb one"></div>
-<div class="orb two"></div>
-<div class="orb three"></div>
 
-<div class="card">
-    <h1>Happy Birthday, Pooja ❤️</h1>
+<div class="wrapper">
+    <div class="card">
+        <h1>Happy Birthday, Pooja ❤️</h1>
 
-    <div id="text"></div>
-    <div id="signature" class="signature"></div>
+        <div id="text"></div>
+        <div id="signature" class="signature"></div>
 
-    <button id="startBtn" onclick="startSurprise()">Tap here, Pooja ❤️</button>
+        <button id="startBtn" onclick="startSurprise()">Tap here, Pooja ❤️</button>
 
-    <!-- MP3 Audio -->
-    <audio id="song" preload="auto">
-        <source src="ReelAudio-16362.mp3" type="audio/mpeg">
-    </audio>
+        <audio id="song" preload="auto">
+            <source src="ReelAudio-16362.mp3" type="audio/mpeg">
+        </audio>
+    </div>
 </div>
 
 <script>
+/* MESSAGE */
 const message = `If time could pause, it would stop with you,
 In moments soft, in skies of blue.
 
@@ -200,9 +203,7 @@ function typeText() {
     if (i < message.length) {
         textDiv.innerHTML += message.charAt(i++);
         setTimeout(typeText, 45);
-    } else {
-        typeSignature();
-    }
+    } else typeSignature();
 }
 
 function typeSignature() {
@@ -212,28 +213,49 @@ function typeSignature() {
     }
 }
 
+/* CONFETTI BURST */
+function confettiBurst() {
+    for (let i = 0; i < 60; i++) {
+        const c = document.createElement("div");
+        c.className = "confetti";
+        c.style.left = Math.random() * 100 + "vw";
+        c.style.background = `hsl(${Math.random()*360},100%,70%)`;
+        c.style.transform = `rotate(${Math.random()*360}deg)`;
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 2600);
+    }
+}
+
 function startSurprise() {
     typeText();
+    confettiBurst();
 
     song.volume = 0;
     song.play();
-
     let v = 0;
     const fade = setInterval(() => {
         if (v < 0.85) {
             v += 0.05;
             song.volume = v;
-        } else {
-            clearInterval(fade);
-        }
+        } else clearInterval(fade);
     }, 300);
 
     document.getElementById("startBtn").style.display = "none";
 }
 
-/* Falling hearts */
-for (let k = 0; k < 28; k++) {
-    let h = document.createElement("div");
+/* SPARKLES */
+for (let i = 0; i < 45; i++) {
+    const s = document.createElement("div");
+    s.className = "sparkle";
+    s.style.left = Math.random() * 100 + "vw";
+    s.style.animationDuration = (6 + Math.random() * 6) + "s";
+    s.style.animationDelay = Math.random() * 6 + "s";
+    document.body.appendChild(s);
+}
+
+/* FALLING HEARTS */
+for (let i = 0; i < 25; i++) {
+    const h = document.createElement("div");
     h.className = "heart-fall";
     h.innerHTML = "❤️";
     h.style.left = Math.random() * 100 + "vw";
