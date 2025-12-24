@@ -5,65 +5,81 @@
 <title>Happy Birthday Pooja ❤️</title>
 
 <style>
-* { box-sizing: border-box; }
-
 body {
     margin: 0;
     height: 100vh;
     overflow: hidden;
-    font-family: 'Segoe UI', sans-serif;
-    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: 'Segoe UI', sans-serif;
+    color: white;
+    background: radial-gradient(circle at top, #3a006a, #1b002e 70%);
 }
 
-/* 🌌 DARK VIOLET ANIMATED BACKGROUND */
-.background {
-    position: fixed;
-    inset: 0;
-    background: linear-gradient(
-        120deg,
-        #1b0033,
-        #2e004f,
-        #3b0066,
-        #24003d
-    );
-    background-size: 300% 300%;
-    animation: bgMove 16s ease infinite;
-    z-index: -5;
-}
-
-@keyframes bgMove {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-/* 🎂 GIANT STILL EMOJIS */
-.still-emoji {
+/* 🌌 Twinkling star background */
+.star {
     position: absolute;
-    font-size: 90px; /* GIANT MODE */
-    opacity: 0.9;
-    filter: drop-shadow(0 0 20px rgba(255,200,255,0.6));
-    z-index: -1;
+    color: #ffd6ff;
+    font-size: 10px;
+    opacity: 0.8;
+    animation: twinkle 3s infinite alternate;
+    z-index: 0;
 }
 
-/* 💜 CARD */
+@keyframes twinkle {
+    from { opacity: 0.3; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1.2); }
+}
+
+/* ✨ Rising sparkles */
+.sparkle {
+    position: absolute;
+    bottom: -20px;
+    color: #ffd6ff;
+    font-size: 16px;
+    animation: riseSparkle linear infinite;
+    opacity: 0.9;
+    z-index: 1;
+}
+
+@keyframes riseSparkle {
+    to {
+        transform: translateY(-110vh);
+        opacity: 0;
+    }
+}
+
+/* 💜 Giant floating emojis */
+.float-emoji {
+    position: absolute;
+    font-size: 90px;
+    animation: floatEmoji 6s ease-in-out infinite;
+    filter: drop-shadow(0 0 18px rgba(255,182,255,0.6));
+    z-index: 1;
+}
+
+@keyframes floatEmoji {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0); }
+}
+
+/* 🎂 Card */
 .card {
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(20, 0, 40, 0.6);
     padding: 40px;
     border-radius: 25px;
-    max-width: 420px;
     text-align: center;
-    box-shadow: 0 0 40px rgba(170, 90, 255, 0.6);
+    max-width: 420px;
+    box-shadow: 0 0 40px rgba(200,100,255,0.6);
     animation: fadeIn 2s ease;
     z-index: 5;
 }
 
 h1 {
     font-size: 38px;
-    text-shadow: 0 0 15px rgba(255,255,255,0.6);
+    text-shadow: 0 0 12px rgba(255,182,255,0.8);
 }
 
 #text {
@@ -71,11 +87,13 @@ h1 {
     line-height: 1.7;
     min-height: 240px;
     white-space: pre-line;
+    text-shadow: 0 0 10px rgba(255,182,255,0.6);
 }
 
 .signature {
     margin-top: 12px;
     font-style: italic;
+    font-size: 17px;
     color: #ffd6ff;
     animation: glowPulse 2.5s infinite;
 }
@@ -84,61 +102,12 @@ button {
     margin-top: 20px;
     padding: 12px 26px;
     font-size: 16px;
-    border-radius: 30px;
     border: none;
+    border-radius: 30px;
     cursor: pointer;
-    background: #a855f7;
+    background: #c77dff;
     color: white;
-    box-shadow: 0 0 18px rgba(168,85,247,1);
-}
-
-/* ✨ RISING SPARKLES */
-.sparkle {
-    position: absolute;
-    bottom: -20px;
-    color: #f5d0ff;
-    font-size: 18px;
-    opacity: 0.9;
-    animation: riseSparkle linear infinite;
-    z-index: -2;
-}
-
-@keyframes riseSparkle {
-    to {
-        transform: translateY(-120vh);
-        opacity: 0;
-    }
-}
-
-/* ❤️ FALLING HEARTS */
-.heart-fall {
-    position: absolute;
-    top: -10px;
-    animation: fall linear infinite;
-    z-index: -2;
-}
-
-@keyframes fall {
-    to {
-        transform: translateY(110vh);
-        opacity: 0;
-    }
-}
-
-/* 🎉 CONFETTI */
-.confetti {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    background: pink;
-    animation: confettiFall 2.5s linear forwards;
-}
-
-@keyframes confettiFall {
-    to {
-        transform: translateY(120vh) rotate(720deg);
-        opacity: 0;
-    }
+    box-shadow: 0 0 18px rgba(199,125,255,0.9);
 }
 
 @keyframes fadeIn {
@@ -147,27 +116,43 @@ button {
 }
 
 @keyframes glowPulse {
-    0% { text-shadow: 0 0 8px rgba(255,182,193,0.6); }
-    50% { text-shadow: 0 0 20px rgba(255,182,193,1); }
-    100% { text-shadow: 0 0 8px rgba(255,182,193,0.6); }
+    0% { text-shadow: 0 0 8px #ffd6ff; }
+    50% { text-shadow: 0 0 18px #ffffff; }
+    100% { text-shadow: 0 0 8px #ffd6ff; }
+}
+
+/* ❤️ Falling hearts */
+.heart-fall {
+    position: absolute;
+    top: -10px;
+    animation: fall linear infinite;
+    z-index: 2;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh);
+        opacity: 0;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<div class="background"></div>
+<!-- 💜 GIANT STILL EMOJIS (white circle areas + extras) -->
+<div class="float-emoji" style="top:8%; left:10%">🎂</div>
+<div class="float-emoji" style="top:12%; right:12%">💖</div>
+<div class="float-emoji" style="top:28%; left:18%">💜</div>
+<div class="float-emoji" style="top:30%; right:20%">🎉</div>
+<div class="float-emoji" style="top:48%; left:6%">✨</div>
+<div class="float-emoji" style="top:52%; right:6%">💝</div>
+<div class="float-emoji" style="bottom:18%; left:14%">🎁</div>
+<div class="float-emoji" style="bottom:22%; right:14%">🥂</div>
+<div class="float-emoji" style="bottom:6%; left:40%">💞</div>
+<div class="float-emoji" style="top:65%; right:38%">🌟</div>
 
-<!-- 🎂 GIANT STILL EMOJIS (REFERENCE + EXTRA RANDOM) -->
-<div class="still-emoji" style="top:8%; left:12%;">🎂</div>
-<div class="still-emoji" style="top:22%; right:10%;">🎉</div>
-<div class="still-emoji" style="top:45%; left:5%;">💜</div>
-<div class="still-emoji" style="top:60%; right:8%;">✨</div>
-<div class="still-emoji" style="bottom:10%; left:18%;">🎁</div>
-<div class="still-emoji" style="bottom:15%; right:20%;">🥂</div>
-<div class="still-emoji" style="top:35%; right:30%;">💖</div>
-<div class="still-emoji" style="bottom:35%; left:30%;">🌸</div>
-
+<!-- 🎂 CARD -->
 <div class="card">
     <h1>Happy Birthday, Pooja ❤️</h1>
     <div id="text"></div>
@@ -212,53 +197,50 @@ function typeSignature() {
     }
 }
 
-function confettiBurst() {
-    for (let i = 0; i < 80; i++) {
-        let c = document.createElement("div");
-        c.className = "confetti";
-        c.style.left = Math.random() * 100 + "vw";
-        c.style.background = `hsl(${Math.random()*360},100%,70%)`;
-        document.body.appendChild(c);
-        setTimeout(() => c.remove(), 2500);
-    }
-}
-
 function startSurprise() {
     typeText();
     song.volume = 0;
     song.play();
-    confettiBurst();
-
     let v = 0;
     const fade = setInterval(() => {
-        if (v < 0.85) song.volume = (v += 0.05);
+        if (v < 0.85) { v += 0.05; song.volume = v; }
         else clearInterval(fade);
     }, 300);
-
     document.getElementById("startBtn").style.display = "none";
 }
 
-/* ❤️ Falling Hearts */
+/* ❤️ Falling hearts */
 for (let k = 0; k < 30; k++) {
     let h = document.createElement("div");
     h.className = "heart-fall";
     h.innerHTML = "❤️";
     h.style.left = Math.random() * 100 + "vw";
-    h.style.fontSize = (18 + Math.random() * 22) + "px";
     h.style.animationDuration = (6 + Math.random() * 6) + "s";
+    h.style.fontSize = (16 + Math.random() * 26) + "px";
     document.body.appendChild(h);
 }
 
-/* ✨ Rising Sparkles */
-setInterval(() => {
-    let s = document.createElement("div");
-    s.className = "sparkle";
-    s.innerHTML = "✨";
-    s.style.left = Math.random() * 100 + "vw";
-    s.style.animationDuration = (6 + Math.random() * 6) + "s";
-    document.body.appendChild(s);
-    setTimeout(() => s.remove(), 8000);
-}, 300);
+/* ✨ Rising sparkles */
+for (let s = 0; s < 40; s++) {
+    let sp = document.createElement("div");
+    sp.className = "sparkle";
+    sp.innerHTML = "✨";
+    sp.style.left = Math.random() * 100 + "vw";
+    sp.style.animationDuration = (6 + Math.random() * 6) + "s";
+    sp.style.fontSize = (12 + Math.random() * 10) + "px";
+    document.body.appendChild(sp);
+}
+
+/* 🌌 Stars */
+for (let t = 0; t < 50; t++) {
+    let st = document.createElement("div");
+    st.className = "star";
+    st.innerHTML = "✦";
+    st.style.top = Math.random() * 100 + "vh";
+    st.style.left = Math.random() * 100 + "vw";
+    st.style.animationDelay = Math.random() * 3 + "s";
+    document.body.appendChild(st);
+}
 </script>
 
 </body>
