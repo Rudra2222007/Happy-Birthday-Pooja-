@@ -5,6 +5,7 @@
 <title>Happy Birthday Pooja ❤️</title>
 
 <style>
+/* ===== Base ===== */
 body {
     margin: 0;
     height: 100vh;
@@ -14,72 +15,103 @@ body {
     align-items: center;
     font-family: 'Segoe UI', sans-serif;
     color: white;
-    background: radial-gradient(circle at top, #3a006a, #1b002e 70%);
 }
 
-/* 🌌 Twinkling star background */
+/* ===== Animated Violet Background ===== */
+.background {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(
+        -45deg,
+        #1a002b,
+        #2d004d,
+        #3b0066,
+        #24003d
+    );
+    background-size: 400% 400%;
+    animation: bgMove 20s ease infinite;
+    z-index: -5;
+}
+
+@keyframes bgMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ===== Stars ===== */
 .star {
-    position: absolute;
-    color: #ffd6ff;
-    font-size: 10px;
-    opacity: 0.8;
+    position: fixed;
+    color: #fff;
+    opacity: 0.6;
     animation: twinkle 3s infinite alternate;
-    z-index: 0;
+    z-index: -4;
 }
 
 @keyframes twinkle {
-    from { opacity: 0.3; transform: scale(0.8); }
-    to { opacity: 1; transform: scale(1.2); }
+    from { opacity: 0.2; }
+    to { opacity: 0.8; }
 }
 
-/* ✨ Rising sparkles */
+/* ===== Rising Sparkles ===== */
 .sparkle {
-    position: absolute;
+    position: fixed;
     bottom: -20px;
-    color: #ffd6ff;
-    font-size: 16px;
-    animation: riseSparkle linear infinite;
-    opacity: 0.9;
-    z-index: 1;
+    color: gold;
+    font-size: 14px;
+    animation: rise 8s linear infinite;
+    opacity: 0.8;
+    z-index: -3;
 }
 
-@keyframes riseSparkle {
+@keyframes rise {
     to {
-        transform: translateY(-110vh);
+        transform: translateY(-120vh);
         opacity: 0;
     }
 }
 
-/* 💜 Giant floating emojis */
-.float-emoji {
+/* ===== Giant Still Emojis ===== */
+.big-emoji {
+    position: fixed;
+    font-size: 90px; /* ~15x */
+    opacity: 0.9;
+    filter: drop-shadow(0 0 20px rgba(255,255,255,0.4));
+    z-index: -2;
+}
+
+/* ===== Moon Glow Behind Card ===== */
+.moon-glow {
     position: absolute;
-    font-size: 90px;
-    animation: floatEmoji 6s ease-in-out infinite;
-    filter: drop-shadow(0 0 18px rgba(255,182,255,0.6));
-    z-index: 1;
+    width: 520px;
+    height: 520px;
+    background: radial-gradient(
+        circle,
+        rgba(255,255,255,0.25),
+        rgba(180,120,255,0.15),
+        transparent 70%
+    );
+    border-radius: 50%;
+    filter: blur(40px);
+    z-index: 0;
 }
 
-@keyframes floatEmoji {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
-    100% { transform: translateY(0); }
-}
-
-/* 🎂 Card */
+/* ===== Card ===== */
 .card {
-    background: rgba(20, 0, 40, 0.6);
+    position: relative;
+    background: rgba(0, 0, 0, 0.35);
     padding: 40px;
     border-radius: 25px;
     text-align: center;
     max-width: 420px;
-    box-shadow: 0 0 40px rgba(200,100,255,0.6);
+    box-shadow: 0 0 40px rgba(180,120,255,0.6);
     animation: fadeIn 2s ease;
-    z-index: 5;
+    z-index: 2;
 }
 
 h1 {
     font-size: 38px;
-    text-shadow: 0 0 12px rgba(255,182,255,0.8);
+    text-shadow: 0 0 12px rgba(255,255,255,0.5);
 }
 
 #text {
@@ -87,7 +119,6 @@ h1 {
     line-height: 1.7;
     min-height: 240px;
     white-space: pre-line;
-    text-shadow: 0 0 10px rgba(255,182,255,0.6);
 }
 
 .signature {
@@ -105,28 +136,29 @@ button {
     border: none;
     border-radius: 30px;
     cursor: pointer;
-    background: #c77dff;
+    background: #b517ff;
     color: white;
-    box-shadow: 0 0 18px rgba(199,125,255,0.9);
+    box-shadow: 0 0 15px rgba(181,23,255,0.9);
 }
 
+/* ===== Animations ===== */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(30px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes glowPulse {
-    0% { text-shadow: 0 0 8px #ffd6ff; }
+    0% { text-shadow: 0 0 8px #ffb3ff; }
     50% { text-shadow: 0 0 18px #ffffff; }
-    100% { text-shadow: 0 0 8px #ffd6ff; }
+    100% { text-shadow: 0 0 8px #ffb3ff; }
 }
 
-/* ❤️ Falling hearts */
+/* ===== Falling Hearts ===== */
 .heart-fall {
-    position: absolute;
+    position: fixed;
     top: -10px;
     animation: fall linear infinite;
-    z-index: 2;
+    z-index: -1;
 }
 
 @keyframes fall {
@@ -135,24 +167,40 @@ button {
         opacity: 0;
     }
 }
+
+/* ===== Confetti ===== */
+.confetti {
+    position: fixed;
+    top: -10px;
+    animation: confettiFall 3s linear forwards;
+    font-size: 18px;
+}
+
+@keyframes confettiFall {
+    to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
 </style>
 </head>
 
 <body>
 
-<!-- 💜 GIANT STILL EMOJIS (white circle areas + extras) -->
-<div class="float-emoji" style="top:8%; left:10%">🎂</div>
-<div class="float-emoji" style="top:12%; right:12%">💖</div>
-<div class="float-emoji" style="top:28%; left:18%">💜</div>
-<div class="float-emoji" style="top:30%; right:20%">🎉</div>
-<div class="float-emoji" style="top:48%; left:6%">✨</div>
-<div class="float-emoji" style="top:52%; right:6%">💝</div>
-<div class="float-emoji" style="bottom:18%; left:14%">🎁</div>
-<div class="float-emoji" style="bottom:22%; right:14%">🥂</div>
-<div class="float-emoji" style="bottom:6%; left:40%">💞</div>
-<div class="float-emoji" style="top:65%; right:38%">🌟</div>
+<div class="background"></div>
 
-<!-- 🎂 CARD -->
+<!-- Giant Emojis (placed near your white circles) -->
+<div class="big-emoji" style="top:8%; left:12%">🎂</div>
+<div class="big-emoji" style="top:15%; right:10%">🎉</div>
+<div class="big-emoji" style="top:35%; left:5%">💜</div>
+<div class="big-emoji" style="top:45%; right:8%">✨</div>
+<div class="big-emoji" style="bottom:18%; left:10%">🎁</div>
+<div class="big-emoji" style="bottom:12%; right:12%">🥂</div>
+<div class="big-emoji" style="top:65%; left:40%">💖</div>
+<div class="big-emoji" style="top:22%; left:55%">💫</div>
+
+<div class="moon-glow"></div>
+
 <div class="card">
     <h1>Happy Birthday, Pooja ❤️</h1>
     <div id="text"></div>
@@ -165,6 +213,7 @@ button {
 </div>
 
 <script>
+/* ===== Text ===== */
 const message = `If time could pause, it would stop with you,
 In moments soft, in skies of blue.
 
@@ -187,7 +236,9 @@ function typeText() {
     if (i < message.length) {
         textDiv.innerHTML += message.charAt(i++);
         setTimeout(typeText, 45);
-    } else typeSignature();
+    } else {
+        typeSignature();
+    }
 }
 
 function typeSignature() {
@@ -201,46 +252,59 @@ function startSurprise() {
     typeText();
     song.volume = 0;
     song.play();
+
     let v = 0;
     const fade = setInterval(() => {
-        if (v < 0.85) { v += 0.05; song.volume = v; }
-        else clearInterval(fade);
+        if (v < 0.85) {
+            v += 0.05;
+            song.volume = v;
+        } else clearInterval(fade);
     }, 300);
+
     document.getElementById("startBtn").style.display = "none";
+
+    // Confetti burst
+    for (let i = 0; i < 40; i++) {
+        let c = document.createElement("div");
+        c.className = "confetti";
+        c.innerHTML = ["🎉","✨","💜","💖"][Math.floor(Math.random()*4)];
+        c.style.left = Math.random() * 100 + "vw";
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 3000);
+    }
 }
 
-/* ❤️ Falling hearts */
+/* Falling hearts */
 for (let k = 0; k < 30; k++) {
     let h = document.createElement("div");
     h.className = "heart-fall";
     h.innerHTML = "❤️";
     h.style.left = Math.random() * 100 + "vw";
     h.style.animationDuration = (6 + Math.random() * 6) + "s";
-    h.style.fontSize = (16 + Math.random() * 26) + "px";
+    h.style.fontSize = (14 + Math.random() * 24) + "px";
     document.body.appendChild(h);
 }
 
-/* ✨ Rising sparkles */
-for (let s = 0; s < 40; s++) {
+/* Stars */
+for (let s = 0; s < 60; s++) {
+    let star = document.createElement("div");
+    star.className = "star";
+    star.innerHTML = "✦";
+    star.style.left = Math.random() * 100 + "vw";
+    star.style.top = Math.random() * 100 + "vh";
+    star.style.fontSize = (6 + Math.random() * 10) + "px";
+    document.body.appendChild(star);
+}
+
+/* Rising sparkles */
+setInterval(() => {
     let sp = document.createElement("div");
     sp.className = "sparkle";
     sp.innerHTML = "✨";
     sp.style.left = Math.random() * 100 + "vw";
-    sp.style.animationDuration = (6 + Math.random() * 6) + "s";
-    sp.style.fontSize = (12 + Math.random() * 10) + "px";
     document.body.appendChild(sp);
-}
-
-/* 🌌 Stars */
-for (let t = 0; t < 50; t++) {
-    let st = document.createElement("div");
-    st.className = "star";
-    st.innerHTML = "✦";
-    st.style.top = Math.random() * 100 + "vh";
-    st.style.left = Math.random() * 100 + "vw";
-    st.style.animationDelay = Math.random() * 3 + "s";
-    document.body.appendChild(st);
-}
+    setTimeout(() => sp.remove(), 8000);
+}, 300);
 </script>
 
 </body>
