@@ -9,78 +9,77 @@ body {
     margin: 0;
     height: 100vh;
     overflow: hidden;
-    font-family: 'Segoe UI', sans-serif;
-    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: radial-gradient(circle at top, #2b0040, #120018);
+    font-family: 'Segoe UI', sans-serif;
+    color: white;
+    background: radial-gradient(circle at top, #3a006a, #1b002e 70%);
 }
 
-/* 🌌 Dark Violet Animated Background */
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background: linear-gradient(120deg, #2b0040, #4b0082, #2b0040);
-    background-size: 300% 300%;
-    animation: bgShift 20s ease infinite;
-    z-index: -4;
+/* 🌌 Twinkling star background */
+.star {
+    position: absolute;
+    color: #ffd6ff;
+    font-size: 10px;
+    opacity: 0.8;
+    animation: twinkle 3s infinite alternate;
+    z-index: 0;
 }
 
-@keyframes bgShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+@keyframes twinkle {
+    from { opacity: 0.3; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1.2); }
 }
 
-/* ✨ Sparkles */
+/* ✨ Rising sparkles */
 .sparkle {
     position: absolute;
-    width: 4px;
-    height: 4px;
-    background: white;
-    border-radius: 50%;
-    opacity: 0.8;
-    animation: sparkleTwinkle 3s infinite alternate;
-    z-index: -1;
-}
-
-@keyframes sparkleTwinkle {
-    from { transform: scale(0.3); opacity: 0.3; }
-    to { transform: scale(1.2); opacity: 1; }
-}
-
-/* 🎈 STILL FLOATING EMOJIS (15x BIGGER) */
-.floating-emoji {
-    position: absolute;
-    font-size: 90px; /* ~15x bigger */
-    opacity: 0.85;
-    animation: gentleFloat 6s ease-in-out infinite;
+    bottom: -20px;
+    color: #ffd6ff;
+    font-size: 16px;
+    animation: riseSparkle linear infinite;
+    opacity: 0.9;
     z-index: 1;
 }
 
-@keyframes gentleFloat {
+@keyframes riseSparkle {
+    to {
+        transform: translateY(-110vh);
+        opacity: 0;
+    }
+}
+
+/* 💜 Giant floating emojis */
+.float-emoji {
+    position: absolute;
+    font-size: 90px;
+    animation: floatEmoji 6s ease-in-out infinite;
+    filter: drop-shadow(0 0 18px rgba(255,182,255,0.6));
+    z-index: 1;
+}
+
+@keyframes floatEmoji {
     0% { transform: translateY(0); }
     50% { transform: translateY(-20px); }
     100% { transform: translateY(0); }
 }
 
-/* 🎴 Card */
+/* 🎂 Card */
 .card {
-    background: rgba(0,0,0,0.45);
+    background: rgba(20, 0, 40, 0.6);
     padding: 40px;
     border-radius: 25px;
     text-align: center;
     max-width: 420px;
-    box-shadow: 0 0 40px rgba(199,125,255,0.6);
+    box-shadow: 0 0 40px rgba(200,100,255,0.6);
     animation: fadeIn 2s ease;
     z-index: 5;
 }
 
 h1 {
-    font-size: 36px;
-    text-shadow: 0 0 14px rgba(255,182,193,0.9);
+    font-size: 38px;
+    text-shadow: 0 0 12px rgba(255,182,255,0.8);
 }
 
 #text {
@@ -88,13 +87,14 @@ h1 {
     line-height: 1.7;
     min-height: 240px;
     white-space: pre-line;
+    text-shadow: 0 0 10px rgba(255,182,255,0.6);
 }
 
 .signature {
     margin-top: 12px;
     font-style: italic;
-    color: #ffd6e0;
-    text-shadow: 0 0 14px rgba(255,182,193,1);
+    font-size: 17px;
+    color: #ffd6ff;
     animation: glowPulse 2.5s infinite;
 }
 
@@ -102,12 +102,12 @@ button {
     margin-top: 20px;
     padding: 12px 26px;
     font-size: 16px;
-    border-radius: 30px;
     border: none;
+    border-radius: 30px;
+    cursor: pointer;
     background: #c77dff;
     color: white;
     box-shadow: 0 0 18px rgba(199,125,255,0.9);
-    cursor: pointer;
 }
 
 @keyframes fadeIn {
@@ -116,12 +116,12 @@ button {
 }
 
 @keyframes glowPulse {
-    0% { text-shadow: 0 0 8px rgba(255,182,193,0.6); }
-    50% { text-shadow: 0 0 20px rgba(255,182,193,1); }
-    100% { text-shadow: 0 0 8px rgba(255,182,193,0.6); }
+    0% { text-shadow: 0 0 8px #ffd6ff; }
+    50% { text-shadow: 0 0 18px #ffffff; }
+    100% { text-shadow: 0 0 8px #ffd6ff; }
 }
 
-/* ❤️ Falling Hearts */
+/* ❤️ Falling hearts */
 .heart-fall {
     position: absolute;
     top: -10px;
@@ -140,23 +140,26 @@ button {
 
 <body>
 
-<!-- 🎈 BIG STILL FLOATING EMOJIS -->
-<div class="floating-emoji" style="top:8%; left:8%;">🎂</div>
-<div class="floating-emoji" style="top:15%; right:10%;">🎉</div>
-<div class="floating-emoji" style="top:40%; left:3%;">💜</div>
-<div class="floating-emoji" style="top:55%; right:5%;">✨</div>
-<div class="floating-emoji" style="bottom:18%; left:10%;">🎁</div>
-<div class="floating-emoji" style="bottom:12%; right:12%;">🎈</div>
-<div class="floating-emoji" style="top:70%; left:55%;">💖</div>
-<div class="floating-emoji" style="top:25%; left:70%;">🌸</div>
+<!-- 💜 GIANT STILL EMOJIS (white circle areas + extras) -->
+<div class="float-emoji" style="top:8%; left:10%">🎂</div>
+<div class="float-emoji" style="top:12%; right:12%">💖</div>
+<div class="float-emoji" style="top:28%; left:18%">💜</div>
+<div class="float-emoji" style="top:30%; right:20%">🎉</div>
+<div class="float-emoji" style="top:48%; left:6%">✨</div>
+<div class="float-emoji" style="top:52%; right:6%">💝</div>
+<div class="float-emoji" style="bottom:18%; left:14%">🎁</div>
+<div class="float-emoji" style="bottom:22%; right:14%">🥂</div>
+<div class="float-emoji" style="bottom:6%; left:40%">💞</div>
+<div class="float-emoji" style="top:65%; right:38%">🌟</div>
 
+<!-- 🎂 CARD -->
 <div class="card">
     <h1>Happy Birthday, Pooja ❤️</h1>
     <div id="text"></div>
-    <div class="signature" id="signature"></div>
-    <button onclick="startSurprise()">Tap here, Pooja ❤️</button>
+    <div id="signature" class="signature"></div>
+    <button id="startBtn" onclick="startSurprise()">Tap here, Pooja ❤️</button>
 
-    <audio id="song">
+    <audio id="song" preload="auto">
         <source src="ReelAudio-16362.mp3" type="audio/mpeg">
     </audio>
 </div>
@@ -173,54 +176,70 @@ May love find you wherever you tread.
 And if my heart could softly say,
 It would choose you — every day 💖`;
 
-const signature = "~ Rudra";
-let i=0,j=0;
-const textDiv=document.getElementById("text");
-const signDiv=document.getElementById("signature");
-const song=document.getElementById("song");
+const signature = `~ Rudra`;
 
-function typeText(){
-    if(i<message.length){
-        textDiv.innerHTML+=message.charAt(i++);
-        setTimeout(typeText,45);
+let i = 0, j = 0;
+const textDiv = document.getElementById("text");
+const signDiv = document.getElementById("signature");
+const song = document.getElementById("song");
+
+function typeText() {
+    if (i < message.length) {
+        textDiv.innerHTML += message.charAt(i++);
+        setTimeout(typeText, 45);
     } else typeSignature();
 }
-function typeSignature(){
-    if(j<signature.length){
-        signDiv.innerHTML+=signature.charAt(j++);
-        setTimeout(typeSignature,90);
+
+function typeSignature() {
+    if (j < signature.length) {
+        signDiv.innerHTML += signature.charAt(j++);
+        setTimeout(typeSignature, 90);
     }
 }
-function startSurprise(){
+
+function startSurprise() {
     typeText();
-    song.volume=0;
+    song.volume = 0;
     song.play();
-    let v=0;
-    const fade=setInterval(()=>{
-        if(v<0.85){v+=0.05; song.volume=v;}
+    let v = 0;
+    const fade = setInterval(() => {
+        if (v < 0.85) { v += 0.05; song.volume = v; }
         else clearInterval(fade);
-    },300);
+    }, 300);
+    document.getElementById("startBtn").style.display = "none";
 }
 
 /* ❤️ Falling hearts */
-for(let k=0;k<30;k++){
-    let h=document.createElement("div");
-    h.className="heart-fall";
-    h.innerHTML="❤️";
-    h.style.left=Math.random()*100+"vw";
-    h.style.fontSize=(16+Math.random()*26)+"px";
-    h.style.animationDuration=(6+Math.random()*6)+"s";
+for (let k = 0; k < 30; k++) {
+    let h = document.createElement("div");
+    h.className = "heart-fall";
+    h.innerHTML = "❤️";
+    h.style.left = Math.random() * 100 + "vw";
+    h.style.animationDuration = (6 + Math.random() * 6) + "s";
+    h.style.fontSize = (16 + Math.random() * 26) + "px";
     document.body.appendChild(h);
 }
 
-/* ✨ Sparkles */
-for(let s=0;s<80;s++){
-    let sp=document.createElement("div");
-    sp.className="sparkle";
-    sp.style.left=Math.random()*100+"vw";
-    sp.style.top=Math.random()*100+"vh";
-    sp.style.animationDelay=Math.random()*3+"s";
+/* ✨ Rising sparkles */
+for (let s = 0; s < 40; s++) {
+    let sp = document.createElement("div");
+    sp.className = "sparkle";
+    sp.innerHTML = "✨";
+    sp.style.left = Math.random() * 100 + "vw";
+    sp.style.animationDuration = (6 + Math.random() * 6) + "s";
+    sp.style.fontSize = (12 + Math.random() * 10) + "px";
     document.body.appendChild(sp);
+}
+
+/* 🌌 Stars */
+for (let t = 0; t < 50; t++) {
+    let st = document.createElement("div");
+    st.className = "star";
+    st.innerHTML = "✦";
+    st.style.top = Math.random() * 100 + "vh";
+    st.style.left = Math.random() * 100 + "vw";
+    st.style.animationDelay = Math.random() * 3 + "s";
+    document.body.appendChild(st);
 }
 </script>
 
