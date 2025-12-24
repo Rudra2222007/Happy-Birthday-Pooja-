@@ -5,30 +5,34 @@
 <title>Happy Birthday Pooja ❤️</title>
 
 <style>
-* { box-sizing: border-box; }
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 body {
-    margin: 0;
     height: 100vh;
     overflow: hidden;
     font-family: 'Segoe UI', sans-serif;
     color: white;
 }
 
-/* 💜 DARK VIOLET ANIMATED BACKGROUND */
-.background {
+/* 🌌 DARK VIOLET ANIMATED BACKGROUND */
+.bg {
     position: fixed;
     inset: 0;
     background: linear-gradient(
         120deg,
-        #1a002b,
-        #3b0066,
-        #2a004f,
-        #4b0082
+        #2b003f,
+        #3a005f,
+        #4b0082,
+        #2b003f
     );
-    background-size: 300% 300%;
-    animation: bgMove 18s ease infinite;
-    z-index: -5;
+    background-size: 400% 400%;
+    animation: bgMove 20s ease infinite;
+    z-index: -10;
 }
 
 @keyframes bgMove {
@@ -42,34 +46,34 @@ body {
     position: absolute;
     width: 6px;
     height: 6px;
-    background: rgba(255,255,255,0.8);
+    background: rgba(255,255,255,0.9);
     border-radius: 50%;
+    box-shadow: 0 0 12px rgba(255,255,255,1);
     animation: sparkleFloat linear infinite;
-    z-index: -2;
-}
-
-@keyframes sparkleFloat {
-    from { transform: translateY(110vh); opacity: 0; }
-    20% { opacity: 1; }
-    to { transform: translateY(-20vh); opacity: 0; }
-}
-
-/* 🎂 FLOATING EMOJIS (STILL + SLOW) */
-.floating-emoji {
-    position: absolute;
-    font-size: 26px;
-    opacity: 0.9;
-    animation: emojiFloat 8s ease-in-out infinite;
     z-index: -1;
 }
 
-@keyframes emojiFloat {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-18px); }
-    100% { transform: translateY(0); }
+@keyframes sparkleFloat {
+    from { transform: translateY(100vh); opacity: 0; }
+    10% { opacity: 1; }
+    to { transform: translateY(-120vh); opacity: 0; }
 }
 
-/* 🎴 CARD */
+/* 💜 FLOATING EMOJIS (BIG & STILL FLOATING) */
+.floating-emoji {
+    position: absolute;
+    font-size: 46px;
+    opacity: 0.9;
+    animation: emojiFloat 6s ease-in-out infinite;
+    z-index: 1;
+}
+
+@keyframes emojiFloat {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-18px); }
+}
+
+/* CARD */
 .container {
     height: 100vh;
     display: flex;
@@ -78,77 +82,82 @@ body {
 }
 
 .card {
-    background: rgba(0, 0, 0, 0.4);
-    padding: 38px;
-    border-radius: 25px;
-    text-align: center;
+    background: rgba(20, 0, 40, 0.55);
+    backdrop-filter: blur(10px);
+    padding: 40px;
+    border-radius: 24px;
     max-width: 420px;
-    box-shadow: 0 0 40px rgba(186,85,211,0.6);
+    text-align: center;
+    box-shadow: 0 0 50px rgba(180, 120, 255, 0.5);
     animation: fadeIn 2s ease;
     z-index: 5;
 }
 
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 h1 {
     font-size: 36px;
-    text-shadow: 0 0 15px rgba(255,182,193,0.9);
+    margin-bottom: 20px;
+    text-shadow: 0 0 12px rgba(255,255,255,0.7);
 }
 
 #text {
-    font-size: 18px;
-    line-height: 1.7;
     min-height: 230px;
+    font-size: 17px;
+    line-height: 1.7;
     white-space: pre-line;
-    text-shadow: 0 0 10px rgba(255,182,193,0.8);
 }
 
 .signature {
-    margin-top: 12px;
+    margin-top: 14px;
     font-style: italic;
-    color: #ffd6ff;
-    text-shadow: 0 0 18px rgba(255,182,193,1);
+    color: #ffccff;
+    text-shadow: 0 0 14px #ff99ff;
 }
 
 button {
-    margin-top: 18px;
+    margin-top: 22px;
     padding: 12px 28px;
     font-size: 16px;
     border: none;
     border-radius: 30px;
-    background: #b5179e;
+    background: #b517ff;
     color: white;
     cursor: pointer;
-    box-shadow: 0 0 18px rgba(255,77,255,0.9);
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.9); }
-    to { opacity: 1; transform: scale(1); }
+    box-shadow: 0 0 18px #d27bff;
 }
 
 /* ❤️ FALLING HEARTS */
-.heart-fall {
+.heart {
     position: absolute;
     top: -10px;
-    animation: fall linear infinite;
-    z-index: 1;
+    animation: heartFall linear infinite;
+    z-index: 2;
 }
 
-@keyframes fall {
-    to { transform: translateY(110vh); opacity: 0; }
+@keyframes heartFall {
+    to {
+        transform: translateY(110vh);
+        opacity: 0;
+    }
 }
 
-/* 🎊 CONFETTI */
+/* 🎉 CONFETTI */
 .confetti {
-    position: absolute;
+    position: fixed;
     width: 8px;
     height: 14px;
-    animation: confettiFall 3s linear forwards;
-    z-index: 10;
+    background: red;
+    animation: confettiFall 3s ease-out forwards;
+    z-index: 20;
 }
 
 @keyframes confettiFall {
     to {
-        transform: translateY(110vh) rotate(360deg);
+        transform: translateY(120vh) rotate(720deg);
         opacity: 0;
     }
 }
@@ -157,15 +166,15 @@ button {
 
 <body>
 
-<div class="background"></div>
+<div class="bg"></div>
 
-<!-- 🎂 FLOATING EMOJIS (PLACED AROUND EMPTY AREAS) -->
-<div class="floating-emoji" style="top:12%; left:10%;">🎉</div>
-<div class="floating-emoji" style="top:18%; right:12%;">❤️</div>
-<div class="floating-emoji" style="top:42%; left:6%;">✨</div>
-<div class="floating-emoji" style="top:48%; right:8%;">🎂</div>
-<div class="floating-emoji" style="bottom:18%; left:14%;">💜</div>
-<div class="floating-emoji" style="bottom:14%; right:12%;">🎈</div>
+<!-- 💜 BIG FLOATING EMOJIS -->
+<div class="floating-emoji" style="top:10%; left:15%;">🎂</div>
+<div class="floating-emoji" style="top:20%; right:12%;">🎉</div>
+<div class="floating-emoji" style="top:45%; left:6%;">💜</div>
+<div class="floating-emoji" style="top:60%; right:8%;">✨</div>
+<div class="floating-emoji" style="bottom:15%; left:18%;">🥂</div>
+<div class="floating-emoji" style="bottom:12%; right:20%;">🎁</div>
 
 <div class="container">
     <div class="card">
@@ -181,7 +190,7 @@ button {
 </div>
 
 <script>
-/* 💬 TEXT */
+/* MESSAGE */
 const message = `If time could pause, it would stop with you,
 In moments soft, in skies of blue.
 
@@ -204,62 +213,66 @@ function typeText() {
     if (i < message.length) {
         textDiv.innerHTML += message.charAt(i++);
         setTimeout(typeText, 45);
-    } else typeSignature();
+    } else {
+        typeSign();
+    }
 }
 
-function typeSignature() {
+function typeSign() {
     if (j < signature.length) {
         signDiv.innerHTML += signature.charAt(j++);
-        setTimeout(typeSignature, 90);
+        setTimeout(typeSign, 80);
+    }
+}
+
+/* 🎉 CONFETTI BURST */
+function confettiBurst() {
+    for (let i = 0; i < 40; i++) {
+        let c = document.createElement("div");
+        c.className = "confetti";
+        c.style.left = Math.random() * 100 + "vw";
+        c.style.background = `hsl(${Math.random()*360},100%,60%)`;
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 3000);
     }
 }
 
 function startSurprise() {
     typeText();
+    confettiBurst();
+
     song.volume = 0;
     song.play();
 
     let v = 0;
     const fade = setInterval(() => {
-        if (v < 0.85) song.volume = v += 0.05;
-        else clearInterval(fade);
+        if (v < 0.9) {
+            v += 0.05;
+            song.volume = v;
+        } else clearInterval(fade);
     }, 300);
 
-    confettiBurst();
     document.getElementById("startBtn").style.display = "none";
 }
 
-/* ❤️ FALLING HEARTS */
-for (let k = 0; k < 26; k++) {
+/* ❤️ HEARTS */
+for (let i = 0; i < 30; i++) {
     let h = document.createElement("div");
-    h.className = "heart-fall";
+    h.className = "heart";
     h.innerHTML = "❤️";
     h.style.left = Math.random() * 100 + "vw";
-    h.style.fontSize = (14 + Math.random() * 20) + "px";
+    h.style.fontSize = (16 + Math.random() * 24) + "px";
     h.style.animationDuration = (6 + Math.random() * 6) + "s";
     document.body.appendChild(h);
 }
 
 /* ✨ SPARKLES */
-for (let s = 0; s < 40; s++) {
-    let sp = document.createElement("div");
-    sp.className = "sparkle";
-    sp.style.left = Math.random() * 100 + "vw";
-    sp.style.animationDuration = (6 + Math.random() * 8) + "s";
-    sp.style.animationDelay = Math.random() * 5 + "s";
-    document.body.appendChild(sp);
-}
-
-/* 🎊 CONFETTI BURST */
-function confettiBurst() {
-    for (let c = 0; c < 80; c++) {
-        let cf = document.createElement("div");
-        cf.className = "confetti";
-        cf.style.left = Math.random() * 100 + "vw";
-        cf.style.background = `hsl(${Math.random()*360},100%,70%)`;
-        document.body.appendChild(cf);
-        setTimeout(() => cf.remove(), 3000);
-    }
+for (let i = 0; i < 45; i++) {
+    let s = document.createElement("div");
+    s.className = "sparkle";
+    s.style.left = Math.random() * 100 + "vw";
+    s.style.animationDuration = (8 + Math.random() * 10) + "s";
+    document.body.appendChild(s);
 }
 </script>
 
